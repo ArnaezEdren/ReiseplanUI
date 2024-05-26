@@ -2,8 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+     <Nullable>enable</Nullable>
 	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
@@ -11,7 +10,9 @@
     <PackageReference Include="Bogus" Version="34.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
+	
   </ItemGroup>
 
 </Project>
