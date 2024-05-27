@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
-    [Table("Guide")]
+ 
     public class Guide : Person
     {
         public string? LicenseNumber { get; set; }

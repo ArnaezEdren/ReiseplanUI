@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
-    [Table("Traveler")]
+   
     public class Traveler : Person
     {
         public string? PassportNumber { get; set; }

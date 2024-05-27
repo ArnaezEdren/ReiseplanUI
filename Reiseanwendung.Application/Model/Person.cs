@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
-    [Table("Person")]
+    [Table("Persons")]
     public class Person
     {
         public Guid Id { get; set; }
