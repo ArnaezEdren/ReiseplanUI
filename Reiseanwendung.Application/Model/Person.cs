@@ -12,7 +12,7 @@ namespace Reiseanwendung.Application.Model
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
-        public ICollection<TravelPlan> TravelPlans { get; set; } = new List<TravelPlan>();
+        public virtual ICollection<TravelPlan> TravelPlans { get; set; } = new List<TravelPlan>();
 
         public Person()
         {

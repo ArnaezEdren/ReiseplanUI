@@ -35,10 +35,7 @@ namespace Reiseanwendung.Application.Model
 
         public void AddDestination(Destination destination)
         {
-            if (destination == null)
-                throw new ArgumentNullException(nameof(destination));
-
-            Destinations.Add(destination);
+                Destinations.Add(destination);
         }
 
         public bool IsGuideAvailable(Guid guideId, List<Person> people)

@@ -1,0 +1,45 @@
+﻿@page
+@model Reiseanwendung.Webapp.Pages.Reiseplan.IndexModel
+@{
+    ViewData["Title"] = "Reisepläne in der Datenbank";
+}
+
+<h3>Reisepläne in der Datenbank</h3>
+<p>Erstellt um @DateTime.Now.ToString("HH:mm").</p>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>StartDate</th>
+            <th>EndDate</th>
+            <th>People</th>
+            <th>Destinations</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model.Travelplans)
+        {
+            <tr>
+                <td>@t.Name</td>
+                <td>@t.StartDate.ToString("dd.MM.yyyy")</td>
+                <td>@t.EndDate.ToString("dd.MM.yyyy")</td>
+                <td>
+                    <ul>
+                        @foreach (var person in t.People)
+                        {
+                            <li>@person.Name (@person.GetType().Name)</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var destination in t.Destinations)
+                        {
+                            <li>@destination.City, @destination.Country</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -11,7 +11,7 @@ namespace Reiseanwendung.Application.Model
 
     public class Address
     {
-
+        public Guid Id { get; set; }  // Add this line
         public string? Street { get; set; }
         public string? City { get; set; }
         public string? Country { get; set; }
@@ -22,6 +22,7 @@ namespace Reiseanwendung.Application.Model
 
         public Address(string street, string city, string country, string zipCode)
         {
+            Id = Guid.NewGuid();  // Initialize the Id
             Street = street;
             City = city;
             Country = country;
