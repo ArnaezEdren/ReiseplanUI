@@ -19,11 +19,14 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
 
         public void OnGet()
         {
-            
+
+        
+                  
                 Travelplans = _db.TravelPlans
+
                     .Include(tp => tp.Destinations)
                     .Include(tp => tp.People)
-                    .OrderBy(t => t.Name)
+                    .OrderBy(t => t.StartDate)
                     .ToList();
             
 

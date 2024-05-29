@@ -1,11 +1,17 @@
 ﻿@page
 @model Reiseanwendung.Webapp.Pages.Reiseplan.IndexModel
-@{
-    ViewData["Title"] = "Reisepläne in der Datenbank";
+@section head
+{
+    <style>
+        .beendet {
+            background-color: lightgray;
+        }
+    </style>
 }
 
-<h3>Reisepläne in der Datenbank</h3>
-<p>Erstellt um @DateTime.Now.ToString("HH:mm").</p>
+<h3>Reisepläne Datenbank</h3>
+<p>@Model.Travelplans.Count Reisepläne gefunden. Erstellt um @DateTime.Now.ToString("HH:mm").</p>
+
 <table class="table table-sm">
     <thead>
         <tr>
@@ -14,12 +20,15 @@
             <th>EndDate</th>
             <th>People</th>
             <th>Destinations</th>
+            <th>Details</th>
+
         </tr>
     </thead>
     <tbody>
         @foreach (var t in Model.Travelplans)
         {
-            <tr>
+            var cssClass = t.StartDate < DateTime.Now ? "beendet" : "";
+            <tr class="@cssClass">
                 <td>@t.Name</td>
                 <td>@t.StartDate.ToString("dd.MM.yyyy")</td>
                 <td>@t.EndDate.ToString("dd.MM.yyyy")</td>
@@ -39,6 +48,7 @@
                         }
                     </ul>
                 </td>
+                <td><a asp-page="/Reiseplan/Details" asp-route-guid="@t.Id">Details</a></td>
             </tr>
         }
     </tbody>

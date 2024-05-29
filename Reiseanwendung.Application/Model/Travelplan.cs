@@ -16,8 +16,8 @@ namespace Reiseanwendung.Application.Model
         public string? Name { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
-        public virtual ICollection<Person> People { get; set; }
-        public virtual ICollection<Destination> Destinations { get; private set; }
+        public ICollection<Person> People { get; set; } = new List<Person>();
+        public ICollection<Destination> Destinations { get; set; } = new List<Destination>();
 
         public TravelPlan()
         {
