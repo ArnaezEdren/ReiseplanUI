@@ -1,21 +1,16 @@
-﻿using Bogus.DataSets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
     [Table("Accommodation")]
     public class Accommodation
     {
-
-
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public Address? Address { get; private set; }
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
         public Accommodation() { }
 
@@ -24,7 +19,6 @@ namespace Reiseanwendung.Application.Model
             Name = name;
             Address = address;
         }
-
 
         public string GetFullAddress()
         {

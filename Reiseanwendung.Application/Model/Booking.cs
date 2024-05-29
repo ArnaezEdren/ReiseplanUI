@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
@@ -13,20 +9,21 @@ namespace Reiseanwendung.Application.Model
         public Guid Id { get; set; }
         public decimal Cost { get; set; }
         public DateTime Date { get; set; }
+        public string BookingNumber { get; set; } // Added BookingNumber
 
         public Booking()
         {
             Id = Guid.NewGuid();
             Date = DateTime.Now;
+            BookingNumber = Guid.NewGuid().ToString(); // Generate a default booking number
         }
 
-        public Booking(decimal cost, DateTime date)
+        public Booking(decimal cost, DateTime date, string bookingNumber)
         {
             Id = Guid.NewGuid();
             Cost = cost;
             Date = date;
+            BookingNumber = bookingNumber;
         }
-
     }
-
 }

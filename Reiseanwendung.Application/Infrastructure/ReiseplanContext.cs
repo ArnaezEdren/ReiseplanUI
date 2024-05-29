@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Reiseanwendung.Application.Model;
 using System;
+using System.Linq;
 
 namespace Reiseanwendung.Application.Infrastructure
 {
@@ -24,7 +25,7 @@ namespace Reiseanwendung.Application.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-             modelBuilder.Entity<Model.Person>()
+            modelBuilder.Entity<Model.Person>()
                 .ToTable("Persons")
                 .HasDiscriminator<string>("PersonType")
                 .HasValue<Model.Person>("Person")
@@ -33,6 +34,32 @@ namespace Reiseanwendung.Application.Infrastructure
 
             modelBuilder.Entity<Accommodation>()
                 .OwnsOne(a => a.Address);
+
+            modelBuilder.Entity<Destination>()
+                .HasMany(d => d.Accommodations)
+                .WithOne()
+                .HasForeignKey("DestinationId");
+
+            modelBuilder.Entity<Activity>()
+                .HasMany(a => a.Bookings)
+                .WithOne()
+                .HasForeignKey("ActivityId");
+
+            modelBuilder.Entity<Accommodation>()
+                .HasMany(a => a.Bookings)
+                .WithOne()
+                .HasForeignKey("AccommodationId");
+
+            modelBuilder.Entity<Transportation>()
+                .HasDiscriminator<string>("TransportType")
+                .HasValue<Flight>("Flight")
+                .HasValue<Bus>("Bus")
+                .HasValue<Train>("Train");
+
+            modelBuilder.Entity<Destination>()
+                .HasMany(d => d.Transportations)
+                .WithOne()
+                .HasForeignKey("DestinationId");
 
             modelBuilder.Entity<TravelPlan>().ToTable("TravelPlans");
 
@@ -87,13 +114,34 @@ namespace Reiseanwendung.Application.Infrastructure
                         startDateTime,
                         endDateTime
                     );
-                }).Generate(10);
+                }).Generate(20); // Generate 20 activities instead of 10
 
             var bookings = new Faker<Booking>()
                 .CustomInstantiator(f => new Booking(
                     f.Finance.Amount(),
-                    f.Date.Past()
-                )).Generate(10);
+                    f.Date.Past(),
+                    f.Random.Replace("###-###-###") // Generate a random booking number
+                )).Generate(20); // Generate 20 bookings instead of 10
+
+            var transportations = new Faker<Transportation>()
+                .CustomInstantiator(f => new Flight(
+                    f.Random.Replace("###-###-###"), // Generate a random booking number
+                    f.Random.Bool(), // Randomly determine if it's round-trip
+                    f.Finance.Amount(50, 500) // Random cost between 50 and 500
+                )).Generate(5).Cast<Transportation>()
+                .Concat(new Faker<Transportation>()
+                    .CustomInstantiator(f => new Bus(
+                        f.Random.Replace("###-###-###"), // Generate a random booking number
+                        f.Random.Bool(), // Randomly determine if it's round-trip
+                        f.Finance.Amount(10, 100) // Random cost between 10 and 100
+                    )).Generate(5))
+                .Concat(new Faker<Transportation>()
+                    .CustomInstantiator(f => new Train(
+                        f.Random.Replace("###-###-###"), // Generate a random booking number
+                        f.Random.Bool(), // Randomly determine if it's round-trip
+                        f.Finance.Amount(20, 200) // Random cost between 20 and 200
+                    )).Generate(5))
+                .ToList();
 
             var destinations = new Faker<Destination>()
                 .CustomInstantiator(f => new Destination
@@ -121,16 +169,18 @@ namespace Reiseanwendung.Application.Infrastructure
                     f.Date.Future()
                 )).Generate(10);
 
-            var transportations = new Faker<Transportation>()
-                .CustomInstantiator(f => new Transportation(
-                    f.Vehicle.Type()
-                )).Generate(10);
-
-            // Assign activities and bookings to destinations
+            // Assign activities and accommodations with bookings to destinations
             for (int i = 0; i < 10; i++)
             {
                 destinations[i].AddActivity(activities[i]);
-                destinations[i].AddBooking(bookings[i]);
+                destinations[i].AddAccommodation(accommodations[i]);
+                destinations[i].AddTransportation(transportations[i % transportations.Count]);
+                accommodations[i].Bookings.Add(bookings[i]);
+                activities[i].Bookings.Add(bookings[i]);
+                // Assign additional activities and bookings
+                destinations[i].AddActivity(activities[(i + 10) % activities.Count]);
+                destinations[i].AddTransportation(transportations[(i + 10) % transportations.Count]);
+                activities[(i + 10) % activities.Count].Bookings.Add(bookings[(i + 10) % bookings.Count]);
             }
 
             // Assign destinations and people to travel plans
@@ -145,14 +195,13 @@ namespace Reiseanwendung.Application.Infrastructure
             context.Accommodations.AddRange(accommodations);
             context.Activities.AddRange(activities);
             context.Bookings.AddRange(bookings);
+            context.Transportations.AddRange(transportations);
             context.Destinations.AddRange(destinations);
             context.Guides.AddRange(guides);
             context.Travelers.AddRange(travelers);
-            context.Transportations.AddRange(transportations);
             context.TravelPlans.AddRange(travelPlans);
 
             context.SaveChanges();
         }
-
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
@@ -16,9 +13,9 @@ namespace Reiseanwendung.Application.Model
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
         public int DurationInHours { get; set; }
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
         public Activity() { }
-
 
         public Activity(string name, string description, DateTime startDateTime, DateTime endDateTime)
         {
@@ -34,8 +31,5 @@ namespace Reiseanwendung.Application.Model
                 throw new ArgumentException("Die Endzeit muss nach der Startzeit liegen.");
             }
         }
-
     }
-
-
 }
