@@ -31,6 +31,8 @@ namespace Reiseanwendung.Application.Model
 
         public void AddDestination(Destination destination)
         {
+            destination.TravelPlan = this;
+            destination.TravelPlanId = this.Id;
             Destinations.Add(destination);
         }
 
@@ -41,8 +43,8 @@ namespace Reiseanwendung.Application.Model
 
         public decimal CalculateTotalCost()
         {
-            return Destinations.Sum(dest => dest.Accommodations.Sum(acc => acc.Bookings.Sum(bk => bk.Cost)) +
-                                            dest.Activities.Sum(act => act.Bookings.Sum(bk => bk.Cost)));
+            return Destinations.Sum(dest => dest.Accommodations.Sum(acc => acc.Bookings.Sum(bk => bk.Cost) ?? 0) +
+                                                dest.Activities.Sum(act => act.Bookings.Sum(bk => bk.Cost) ?? 0));
         }
 
         public int GetTotalNumberOfActivities()
@@ -54,9 +56,9 @@ namespace Reiseanwendung.Application.Model
         {
             var currentDate = DateTime.Now;
             var activity = Destinations.SelectMany(dest => dest.Activities)
-                                       .Where(activity => activity.StartDateTime > currentDate)
-                                       .OrderBy(activity => activity.StartDateTime)
-                                       .FirstOrDefault();
+                                           .Where(activity => activity.StartDateTime > currentDate)
+                                           .OrderBy(activity => activity.StartDateTime)
+                                           .FirstOrDefault();
 
             if (activity == null)
             {
@@ -71,4 +73,5 @@ namespace Reiseanwendung.Application.Model
             return Destinations.Where(destination => destination.Country == country);
         }
     }
+
 }

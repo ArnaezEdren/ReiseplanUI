@@ -15,8 +15,7 @@
                 <th>Activities</th>
                 <th>Accommodations</th>
                 <th>Transportations</th>
-                <th>Bookings</th>
-                <th>TotalCost</th> <!-- Added TotalCost column header -->
+                <th>TotalCost</th>
             </tr>
         </thead>
         <tbody>
@@ -40,51 +39,51 @@
                     </ul>
                 </td>
                 <td>
-                    <ul>
-                        @foreach (var destination in Model.TravelPlan.Destinations)
-                        {
+                    @foreach (var destination in Model.TravelPlan.Destinations)
+                    {
+                        <ul>
                             @foreach (var activity in destination.Activities)
                             {
                                 <li>@activity.Name (@activity.StartDateTime.ToString("yyyy-MM-dd HH:mm") - @activity.EndDateTime.ToString("yyyy-MM-dd HH:mm"))</li>
                                 <ul>
                                     @foreach (var booking in activity.Bookings)
                                     {
-                                        <li>Booking Number: @booking.BookingNumber, Cost: @booking.Cost.ToString("C") on @booking.Date.ToString("yyyy-MM-dd")</li>
+                                        <li>Booking Number: @booking.BookingNumber, Cost: @(booking.Cost?.ToString("C") ?? "N/A") on @booking.Date.ToString("yyyy-MM-dd")</li>
                                     }
                                 </ul>
                             }
-                        }
-                    </ul>
+                        </ul>
+                    }
                 </td>
                 <td>
-                    <ul>
-                        @foreach (var destination in Model.TravelPlan.Destinations)
-                        {
+                    @foreach (var destination in Model.TravelPlan.Destinations)
+                    {
+                        <ul>
                             @foreach (var accommodation in destination.Accommodations)
                             {
                                 <li>@accommodation.Name - @accommodation.GetFullAddress()</li>
                                 <ul>
                                     @foreach (var booking in accommodation.Bookings)
                                     {
-                                        <li>Booking Number: @booking.BookingNumber, Cost: @booking.Cost.ToString("C") on @booking.Date.ToString("yyyy-MM-dd")</li>
+                                        <li>Booking Number: @booking.BookingNumber, Cost: @(booking.Cost?.ToString("C") ?? "N/A") on @booking.Date.ToString("yyyy-MM-dd")</li>
                                     }
                                 </ul>
                             }
-                        }
-                    </ul>
+                        </ul>
+                    }
                 </td>
                 <td>
-                    <ul>
-                        @foreach (var destination in Model.TravelPlan.Destinations)
-                        {
+                    @foreach (var destination in Model.TravelPlan.Destinations)
+                    {
+                        <ul>
                             @foreach (var transportation in destination.Transportations)
                             {
                                 <li>@transportation.Type - Booking Number: @transportation.BookingNumber, Round Trip: @(transportation.IsRoundTrip ? "Yes" : "No"), Cost: @transportation.Cost.ToString("C")</li>
                             }
-                        }
-                    </ul>
+                        </ul>
+                    }
                 </td>
-                <td>@Model.TotalCost.ToString("C")</td> <!-- Display the total cost -->
+                <td>@Model.TotalCost?.ToString("C")</td> <!-- Display the total cost -->
             </tr>
         </tbody>
     </table>

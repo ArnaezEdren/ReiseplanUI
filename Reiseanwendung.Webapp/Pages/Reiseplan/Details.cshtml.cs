@@ -18,7 +18,7 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
         }
 
         public TravelPlan TravelPlan { get; private set; } = default!;
-        public decimal TotalCost { get; private set; } = 0;
+        public decimal? TotalCost { get; private set; }
 
         public IActionResult OnGet(Guid guid)
         {
@@ -42,9 +42,11 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             TravelPlan = travelPlan;
 
             // Calculate total cost
-            TotalCost = travelPlan.Destinations.Sum(d => d.Accommodations.Sum(a => a.Bookings.Sum(b => b.Cost)) +
-                                                         d.Activities.Sum(a => a.Bookings.Sum(b => b.Cost)) +
-                                                         d.Transportations.Sum(t => t.Cost));
+            TotalCost = travelPlan.Destinations.Sum(d =>
+                d.Accommodations.Sum(a => a.Bookings.Sum(b => (decimal?)b.Cost) ?? 0) +
+                d.Activities.Sum(a => a.Bookings.Sum(b => (decimal?)b.Cost) ?? 0) +
+                d.Transportations.Sum(t => (decimal?)t.Cost ?? 0)
+            );
 
             return Page();
         }

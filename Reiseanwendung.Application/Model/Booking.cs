@@ -7,15 +7,16 @@ namespace Reiseanwendung.Application.Model
     public class Booking
     {
         public Guid Id { get; set; }
-        public decimal Cost { get; set; }
+        public decimal? Cost { get; set; }
         public DateTime Date { get; set; }
-        public string BookingNumber { get; set; } // Added BookingNumber
+        public string? BookingNumber { get; set; }
+        public Guid? ActivityId { get; set; }
+        public Guid? AccommodationId { get; set; }
 
         public Booking()
         {
             Id = Guid.NewGuid();
             Date = DateTime.Now;
-            BookingNumber = Guid.NewGuid().ToString(); // Generate a default booking number
         }
 
         public Booking(decimal cost, DateTime date, string bookingNumber)

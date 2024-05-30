@@ -61,21 +61,19 @@ namespace Reiseanwendung.Application.Infrastructure
                 .WithOne()
                 .HasForeignKey("DestinationId");
 
-            modelBuilder.Entity<TravelPlan>().ToTable("TravelPlans");
-
             modelBuilder.Entity<TravelPlan>()
                 .HasMany(tp => tp.Destinations)
-                .WithOne()
-                .HasForeignKey("TravelPlanId");
+                .WithOne(d => d.TravelPlan)
+                .HasForeignKey(d => d.TravelPlanId);
 
             modelBuilder.Entity<TravelPlan>()
-                .HasMany(tp => tp.People)
-                .WithMany(p => p.TravelPlans)
-                .UsingEntity(j => j.ToTable("TravelPlanParticipants"));
+                .ToTable("TravelPlans");
 
             modelBuilder.Entity<TravelPlanService>()
                 .HasKey(t => t.Id);
         }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -203,5 +201,7 @@ namespace Reiseanwendung.Application.Infrastructure
 
             context.SaveChanges();
         }
+
+
     }
 }
