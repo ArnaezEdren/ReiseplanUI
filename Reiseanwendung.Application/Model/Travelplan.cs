@@ -9,9 +9,9 @@ namespace Reiseanwendung.Application.Model
     public class TravelPlan
     {
         public Guid Id { get; private set; }
-        public string? Name { get; private set; }
-        public DateTime StartDate { get; private set; }
-        public DateTime EndDate { get; private set; }
+        public string? Name { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public ICollection<Person> People { get; set; } = new List<Person>();
         public ICollection<Destination> Destinations { get; set; } = new List<Destination>();
 

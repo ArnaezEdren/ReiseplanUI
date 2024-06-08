@@ -18,10 +18,10 @@
             <th>Name</th>
             <th>StartDate</th>
             <th>EndDate</th>
-            <th>People</th>
+          
             <th>Destinations</th>
             <th>Details</th>
-
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -34,14 +34,6 @@
                 <td>@t.EndDate.ToString("dd.MM.yyyy")</td>
                 <td>
                     <ul>
-                        @foreach (var person in t.People)
-                        {
-                            <li>@person.Name (@person.GetType().Name)</li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    <ul>
                         @foreach (var destination in t.Destinations)
                         {
                             <li>@destination.City, @destination.Country</li>
@@ -49,6 +41,7 @@
                     </ul>
                 </td>
                 <td><a asp-page="/Reiseplan/Details" asp-route-guid="@t.Id">Details</a></td>
+                <td><a asp-page="/Reiseplan/Edit" asp-route-guid="@t.Id">Edit</a></td>
             </tr>
         }
     </tbody>

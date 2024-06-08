@@ -24,8 +24,7 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
                   
                 Travelplans = _db.TravelPlans
 
-                    .Include(tp => tp.Destinations)
-                    .Include(tp => tp.People)
+                    .Include(tp => tp.Destinations)                
                     .OrderBy(t => t.StartDate)
                     .ToList();
             

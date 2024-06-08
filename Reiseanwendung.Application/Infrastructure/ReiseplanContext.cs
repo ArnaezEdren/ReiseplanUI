@@ -93,13 +93,13 @@ namespace Reiseanwendung.Application.Infrastructure
                     f.Address.City(),
                     f.Address.Country(),
                     f.Address.ZipCode()
-                )).Generate(10);
+                )).Generate(20); // Generate 20 addresses instead of 10
 
             var accommodations = new Faker<Accommodation>()
                 .CustomInstantiator(f => new Accommodation(
                     f.Company.CompanyName(),
-                    addresses[f.Random.Int(0, 9)]
-                )).Generate(10);
+                    addresses[f.Random.Int(0, 19)]
+                )).Generate(20); // Generate 20 accommodations instead of 10
 
             var activities = new Faker<Activity>()
                 .CustomInstantiator(f =>
@@ -112,33 +112,33 @@ namespace Reiseanwendung.Application.Infrastructure
                         startDateTime,
                         endDateTime
                     );
-                }).Generate(20); // Generate 20 activities instead of 10
+                }).Generate(40); // Generate 40 activities instead of 20
 
             var bookings = new Faker<Booking>()
                 .CustomInstantiator(f => new Booking(
                     f.Finance.Amount(),
                     f.Date.Past(),
                     f.Random.Replace("###-###-###") // Generate a random booking number
-                )).Generate(20); // Generate 20 bookings instead of 10
+                )).Generate(40); // Generate 40 bookings instead of 20
 
             var transportations = new Faker<Transportation>()
                 .CustomInstantiator(f => new Flight(
                     f.Random.Replace("###-###-###"), // Generate a random booking number
                     f.Random.Bool(), // Randomly determine if it's round-trip
                     f.Finance.Amount(50, 500) // Random cost between 50 and 500
-                )).Generate(5).Cast<Transportation>()
+                )).Generate(10).Cast<Transportation>()
                 .Concat(new Faker<Transportation>()
                     .CustomInstantiator(f => new Bus(
                         f.Random.Replace("###-###-###"), // Generate a random booking number
                         f.Random.Bool(), // Randomly determine if it's round-trip
                         f.Finance.Amount(10, 100) // Random cost between 10 and 100
-                    )).Generate(5))
+                    )).Generate(10))
                 .Concat(new Faker<Transportation>()
                     .CustomInstantiator(f => new Train(
                         f.Random.Replace("###-###-###"), // Generate a random booking number
                         f.Random.Bool(), // Randomly determine if it's round-trip
                         f.Finance.Amount(20, 200) // Random cost between 20 and 200
-                    )).Generate(5))
+                    )).Generate(10))
                 .ToList();
 
             var destinations = new Faker<Destination>()
@@ -146,7 +146,7 @@ namespace Reiseanwendung.Application.Infrastructure
                 {
                     City = f.Address.City(),
                     Country = f.Address.Country()
-                }).Generate(10);
+                }).Generate(20); // Generate 20 destinations instead of 10
 
             var guides = new Faker<Guide>()
                 .CustomInstantiator(f => new Guide(
@@ -167,8 +167,8 @@ namespace Reiseanwendung.Application.Infrastructure
                     f.Date.Future()
                 )).Generate(10);
 
-            // Assign activities and accommodations with bookings to destinations
-            for (int i = 0; i < 10; i++)
+            // Assign activities, accommodations with bookings, and transportations to destinations
+            for (int i = 0; i < 20; i++)
             {
                 destinations[i].AddActivity(activities[i]);
                 destinations[i].AddAccommodation(accommodations[i]);
@@ -176,15 +176,16 @@ namespace Reiseanwendung.Application.Infrastructure
                 accommodations[i].Bookings.Add(bookings[i]);
                 activities[i].Bookings.Add(bookings[i]);
                 // Assign additional activities and bookings
-                destinations[i].AddActivity(activities[(i + 10) % activities.Count]);
-                destinations[i].AddTransportation(transportations[(i + 10) % transportations.Count]);
-                activities[(i + 10) % activities.Count].Bookings.Add(bookings[(i + 10) % bookings.Count]);
+                destinations[i].AddActivity(activities[(i + 20) % activities.Count]);
+                destinations[i].AddTransportation(transportations[(i + 20) % transportations.Count]);
+                activities[(i + 20) % activities.Count].Bookings.Add(bookings[(i + 20) % bookings.Count]);
             }
 
             // Assign destinations and people to travel plans
             for (int i = 0; i < 10; i++)
             {
                 travelPlans[i].AddDestination(destinations[i]);
+                travelPlans[i].AddDestination(destinations[(i + 10) % destinations.Count]); // Adding additional destination
                 travelPlans[i].People.Add(guides[i]);
                 travelPlans[i].People.Add(travelers[i]);
             }
@@ -201,6 +202,7 @@ namespace Reiseanwendung.Application.Infrastructure
 
             context.SaveChanges();
         }
+
 
 
     }

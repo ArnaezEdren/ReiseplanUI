@@ -1,0 +1,31 @@
+﻿@page "{guid}"
+@model Reiseanwendung.Webapp.Pages.Reiseplan.EditModel
+@{
+}
+<form method="post">
+    <input type="hidden" asp-for="TravelPlan.Id" />
+
+    <div>
+        <label asp-for="TravelPlan.Name"></label>
+        <input asp-for="TravelPlan.Name" />
+        <span asp-validation-for="TravelPlan.Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="TravelPlan.StartDate"></label>
+        <input asp-for="TravelPlan.StartDate" type="datetime-local" value="@Model.TravelPlan.StartDate.ToString("yyyy-MM-ddTHH:mm")" />
+        <span asp-validation-for="TravelPlan.StartDate" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="TravelPlan.EndDate"></label>
+        <input asp-for="TravelPlan.EndDate" type="datetime-local" value="@Model.TravelPlan.EndDate.ToString("yyyy-MM-ddTHH:mm")" />
+        <span asp-validation-for="TravelPlan.EndDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
