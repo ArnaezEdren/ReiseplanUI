@@ -7,7 +7,7 @@
     <h4> Infos der Reiseplanung</h4>
     <h4>StartDate: @Model.TravelPlan.StartDate</h4>
     <h4>EndDate: @Model.TravelPlan.EndDate</h4>
-    
+
     @foreach (var destination in Model.TravelPlan.Destinations)
     {
         <div>
@@ -28,11 +28,11 @@
                                 @foreach (var person in Model.TravelPlan.People)
                                 {
                                     <li>@person.Name</li>
-                                                                 }
+                                }
                             </ul>
                         </td>
-                    
-                         <td>
+
+                        <td>
                             <ul>
                                 @foreach (var activity in destination.Activities)
                                 {

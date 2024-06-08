@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Reiseanwendung.Application.Infrastructure;
+using Reiseanwendung.Webapp.Dto;
 
 
 var opt = new DbContextOptionsBuilder<ReiseplanContext>() // Specify the generic type parameter here
@@ -26,7 +27,7 @@ builder.Services.AddDbContext<ReiseplanContext>(opt =>
 {
     opt.UseSqlite("Data Source=Reiseplan.db");
 });
-
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Xunit.Sdk;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Reiseanwendung.Webapp.Pages.Reiseplan.Validation
 {

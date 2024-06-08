@@ -20,7 +20,6 @@ namespace Reiseanwendung.Application.Model
             TravelPlans = new List<TravelPlan>();
         }
 
-
         public Person(string name) : this()
         {
             Name = name;
@@ -38,7 +37,13 @@ namespace Reiseanwendung.Application.Model
         {
             return !TravelPlans.Any(tp => tp.StartDate <= date && tp.EndDate >= date);
         }
+
+        public static bool CanDeletePerson(ICollection<Person> people)
+        {
+            return people.Count > 1;
+        }
     }
+
 
 
 

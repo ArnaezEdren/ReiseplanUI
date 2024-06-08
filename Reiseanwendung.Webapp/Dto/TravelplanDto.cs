@@ -26,7 +26,8 @@ namespace Reiseanwendung.Webapp.Dto
             [Required(ErrorMessage = "End date is required")]
         [DateGreaterThan("StartDate", ErrorMessage = "End date must be greater than start date")]
         DateTime EndDate
-        );
+
+             );
     }
 
 }
