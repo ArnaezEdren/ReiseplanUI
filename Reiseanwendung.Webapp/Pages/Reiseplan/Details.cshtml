@@ -5,8 +5,8 @@
 {
     <h3>Details @Model.TravelPlan.Name</h3>
     <h4> Infos der Reiseplanung</h4>
-    <h4>StartDate: @Model.TravelPlan.StartDate</h4>
-    <h4>EndDate: @Model.TravelPlan.EndDate</h4>
+    <h4>StartDate: @Model.TravelPlan.StartDate.ToString("yyyy-MM-dd")</h4>
+    <h4>EndDate: @Model.TravelPlan.EndDate.ToString("yyyy-MM-dd")</h4>
 
     <div class="d-flex">
         <!-- Buttons on the left side -->
@@ -28,6 +28,8 @@
             {
                 <div class="mb-4">
                     <h5>Destination: @destination.City, @destination.Country</h5>
+                    <a asp-page="/Reiseplan/EditDestination" asp-route-travelPlanId="@Model.TravelPlan.Id" asp-route-destinationId="@destination.Id" class="btn btn-secondary mb-2">Edit Destination</a>
+
                     <table class="table table-sm">
                         <thead>
                             <tr>
@@ -43,12 +45,6 @@
                                         @foreach (var activity in destination.Activities)
                                         {
                                             <li>@activity.Name (@activity.StartDateTime.ToString("yyyy-MM-dd HH:mm") - @activity.EndDateTime.ToString("yyyy-MM-dd HH:mm"))</li>
-                                            <ul>
-                                                @foreach (var booking in activity.Bookings)
-                                                {
-                                                    <li>Booking Number: @booking.BookingNumber, Cost: @(booking.Cost?.ToString("C") ?? "N/A") on @booking.Date.ToString("yyyy-MM-dd")</li>
-                                                }
-                                            </ul>
                                         }
                                     </ul>
                                 </td>
@@ -57,12 +53,6 @@
                                         @foreach (var accommodation in destination.Accommodations)
                                         {
                                             <li>@accommodation.Name - @($"{accommodation.Address.Street}, {accommodation.Address.City}, {accommodation.Address.Country}, {accommodation.Address.ZipCode}")</li>
-                                            <ul>
-                                                @foreach (var booking in accommodation.Bookings)
-                                                {
-                                                    <li>Booking Number: @booking.BookingNumber, Cost: @(booking.Cost?.ToString("C") ?? "N/A") on @booking.Date.ToString("yyyy-MM-dd")</li>
-                                                }
-                                            </ul>
                                         }
                                     </ul>
                                 </td>

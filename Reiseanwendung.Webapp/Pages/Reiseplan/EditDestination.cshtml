@@ -12,8 +12,7 @@
 <form method="post">
     <div class="form-group">
         <label asp-for="Destination.City"></label>
-        <input asp-for="Destination.City" class="form-control" />
-        <span asp-validation-for="Destination.City" class="text-danger"></span>
+     
     </div>
     <div class="form-group">
         <label asp-for="Destination.Country"></label>
@@ -115,24 +114,24 @@
             let activitiesDiv = document.getElementById('activities');
             let activityDiv = document.createElement('div');
             activityDiv.innerHTML = `
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input name="Destination.Activities[${activityCount}].Name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <input name="Destination.Activities[${activityCount}].Description" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Start Date</label>
-                            <input name="Destination.Activities[${activityCount}].StartDateTime" class="form-control" type="datetime-local" />
-                        </div>
-                        <div class="form-group">
-                            <label>End Date</label>
-                            <input name="Destination.Activities[${activityCount}].EndDateTime" class="form-control" type="datetime-local" />
-                        </div>
-                        <button type="button" class="btn btn-danger" onclick="removeActivity(${activityCount})">Remove</button>
-                    `;
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input name="Destination.Activities[${activityCount}].Name" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <input name="Destination.Activities[${activityCount}].Description" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input name="Destination.Activities[${activityCount}].StartDateTime" class="form-control" type="datetime-local" />
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input name="Destination.Activities[${activityCount}].EndDateTime" class="form-control" type="datetime-local" />
+                                </div>
+                                <button type="button" class="btn btn-danger" onclick="removeActivity(${activityCount})">Remove</button>
+                            `;
             activitiesDiv.appendChild(activityDiv);
             activityCount++;
         }
@@ -141,28 +140,28 @@
             let accommodationsDiv = document.getElementById('accommodations');
             let accommodationDiv = document.createElement('div');
             accommodationDiv.innerHTML = `
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input name="Destination.Accommodations[${accommodationCount}].Name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Street</label>
-                            <input name="Destination.Accommodations[${accommodationCount}].Address.Street" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>City</label>
-                            <input name="Destination.Accommodations[${accommodationCount}].Address.City" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Country</label>
-                            <input name="Destination.Accommodations[${accommodationCount}].Address.Country" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Zip Code</label>
-                            <input name="Destination.Accommodations[${accommodationCount}].Address.ZipCode" class="form-control" />
-                        </div>
-                        <button type="button" class="btn btn-danger" onclick="removeAccommodation(${accommodationCount})">Remove</button>
-                    `;
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input name="Destination.Accommodations[${accommodationCount}].Name" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Street</label>
+                                    <input name="Destination.Accommodations[${accommodationCount}].Address.Street" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input name="Destination.Accommodations[${accommodationCount}].Address.City" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Country</label>
+                                    <input name="Destination.Accommodations[${accommodationCount}].Address.Country" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Zip Code</label>
+                                    <input name="Destination.Accommodations[${accommodationCount}].Address.ZipCode" class="form-control" />
+                                </div>
+                                <button type="button" class="btn btn-danger" onclick="removeAccommodation(${accommodationCount})">Remove</button>
+                            `;
             accommodationsDiv.appendChild(accommodationDiv);
             accommodationCount++;
         }
@@ -171,24 +170,24 @@
             let transportationsDiv = document.getElementById('transportations');
             let transportationDiv = document.createElement('div');
             transportationDiv.innerHTML = `
-                        <div class="form-group">
-                            <label>Type</label>
-                            <input name="Destination.Transportations[${transportationCount}].Type" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Booking Number</label>
-                            <input name="Destination.Transportations[${transportationCount}].BookingNumber" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Round Trip</label>
-                            <input name="Destination.Transportations[${transportationCount}].IsRoundTrip" class="form-control" type="checkbox" />
-                        </div>
-                        <div class="form-group">
-                            <label>Cost</label>
-                            <input name="Destination.Transportations[${transportationCount}].Cost" class="form-control" type="number" />
-                        </div>
-                        <button type="button" class="btn btn-danger" onclick="removeTransportation(${transportationCount})">Remove</button>
-                    `;
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <input name="Destination.Transportations[${transportationCount}].Type" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Booking Number</label>
+                                    <input name="Destination.Transportations[${transportationCount}].BookingNumber" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Round Trip</label>
+                                    <input name="Destination.Transportations[${transportationCount}].IsRoundTrip" class="form-control" type="checkbox" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Cost</label>
+                                    <input name="Destination.Transportations[${transportationCount}].Cost" class="form-control" type="number" />
+                                </div>
+                                <button type="button" class="btn btn-danger" onclick="removeTransportation(${transportationCount})">Remove</button>
+                            `;
             transportationsDiv.appendChild(transportationDiv);
             transportationCount++;
         }

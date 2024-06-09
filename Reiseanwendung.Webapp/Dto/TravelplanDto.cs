@@ -15,6 +15,7 @@ namespace Reiseanwendung.Webapp.Dto.Reiseanwendung.Webapp.TravelplanDto
 
     public class DestinationDto
     {
+        public Guid Id { get; set; }
         public string City { get; set; } = string.Empty;  // Initialize to avoid null reference
         public string Country { get; set; } = string.Empty;  // Initialize to avoid null reference
         public List<ActivityDto> Activities { get; set; } = new List<ActivityDto>();  // Initialize to avoid null reference
