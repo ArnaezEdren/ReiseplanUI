@@ -5,7 +5,6 @@ using Reiseanwendung.Application.Infrastructure;
 using Reiseanwendung.Application.Model;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Reiseanwendung.Webapp.Pages.Reiseplan
 {
@@ -21,15 +20,9 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
         public TravelPlan TravelPlan { get; private set; } = default!;
         public decimal? TotalCost { get; private set; }
 
-        [BindProperty]
-        public Person NewPerson { get; set; } = new Person();
-
-        [BindProperty]
-        public Destination NewDestination { get; set; } = new Destination();
-
-        public async Task<IActionResult> OnGetAsync(Guid guid)
+        public IActionResult OnGet(Guid guid)
         {
-            var travelPlan = await _db.TravelPlans
+            var travelPlan = _db.TravelPlans
                 .Include(tp => tp.Destinations)
                     .ThenInclude(d => d.Activities)
                         .ThenInclude(a => a.Bookings)
@@ -39,7 +32,7 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
                 .Include(tp => tp.Destinations)
                     .ThenInclude(d => d.Transportations)
                 .Include(tp => tp.People)
-                .FirstOrDefaultAsync(t => t.Id == guid);
+                .FirstOrDefault(t => t.Id == guid);
 
             if (travelPlan == null)
             {
@@ -56,46 +49,6 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             );
 
             return Page();
-        }
-
-        public async Task<IActionResult> OnPostAddPersonAsync(Guid guid)
-        {
-            var travelPlan = await _db.TravelPlans.Include(tp => tp.People).FirstOrDefaultAsync(t => t.Id == guid);
-
-            if (travelPlan == null)
-            {
-                return RedirectToPage("/Reiseplan/Index");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return RedirectToPage(new { guid });
-            }
-
-            travelPlan.People.Add(NewPerson);
-            await _db.SaveChangesAsync();
-
-            return RedirectToPage(new { guid });
-        }
-
-        public async Task<IActionResult> OnPostAddDestinationAsync(Guid guid)
-        {
-            var travelPlan = await _db.TravelPlans.Include(tp => tp.Destinations).FirstOrDefaultAsync(t => t.Id == guid);
-
-            if (travelPlan == null)
-            {
-                return RedirectToPage("/Reiseplan/Index");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return RedirectToPage(new { guid });
-            }
-
-            travelPlan.Destinations.Add(NewDestination);
-            await _db.SaveChangesAsync();
-
-            return RedirectToPage(new { guid });
         }
     }
 }

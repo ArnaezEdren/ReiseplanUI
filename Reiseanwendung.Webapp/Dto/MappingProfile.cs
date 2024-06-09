@@ -7,11 +7,21 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<TravelplanDto, TravelPlan>();
+
         CreateMap<DestinationDto, Destination>();
         CreateMap<ActivityDto, Activity>();
         CreateMap<AccommodationDto, Accommodation>();
         CreateMap<TransportationDto, Transportation>();
         CreateMap<AddressDto, Address>();
         CreateMap<PersonDto, Person>(); // Ensure this mapping exists
+
+        CreateMap<TravelPlan, TravelplanDto>();
+
+        CreateMap<Destination, DestinationDto>();
+        CreateMap<Activity, ActivityDto>();
+        CreateMap<Accommodation, AccommodationDto>();
+        CreateMap<Transportation, TransportationDto>();
+        CreateMap<Address, AddressDto>();
+        CreateMap<Person, PersonDto>(); // Ensure this mapping exists
     }
 }
