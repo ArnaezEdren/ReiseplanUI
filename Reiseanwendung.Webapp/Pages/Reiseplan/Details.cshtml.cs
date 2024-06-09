@@ -5,6 +5,7 @@ using Reiseanwendung.Application.Infrastructure;
 using Reiseanwendung.Application.Model;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Reiseanwendung.Webapp.Pages.Reiseplan
 {
@@ -49,6 +50,105 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             );
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostDeleteDestinationAsync(Guid travelPlanId, Guid destinationId)
+        {
+            var travelPlan = await _db.TravelPlans
+                .Include(tp => tp.Destinations)
+                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+
+            if (travelPlan == null)
+            {
+                return NotFound();
+            }
+
+            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            if (destination != null)
+            {
+                travelPlan.Destinations.Remove(destination);
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToPage(new { guid = travelPlanId });
+        }
+
+        public async Task<IActionResult> OnPostDeleteActivityAsync(Guid travelPlanId, Guid destinationId, Guid activityId)
+        {
+            var travelPlan = await _db.TravelPlans
+                .Include(tp => tp.Destinations)
+                    .ThenInclude(d => d.Activities)
+                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+
+            if (travelPlan == null)
+            {
+                return NotFound();
+            }
+
+            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            if (destination != null)
+            {
+                var activity = destination.Activities.FirstOrDefault(a => a.Id == activityId);
+                if (activity != null)
+                {
+                    destination.Activities.Remove(activity);
+                    await _db.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToPage(new { guid = travelPlanId });
+        }
+
+        public async Task<IActionResult> OnPostDeleteAccommodationAsync(Guid travelPlanId, Guid destinationId, Guid accommodationId)
+        {
+            var travelPlan = await _db.TravelPlans
+                .Include(tp => tp.Destinations)
+                    .ThenInclude(d => d.Accommodations)
+                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+
+            if (travelPlan == null)
+            {
+                return NotFound();
+            }
+
+            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            if (destination != null)
+            {
+                var accommodation = destination.Accommodations.FirstOrDefault(a => a.Id == accommodationId);
+                if (accommodation != null)
+                {
+                    destination.Accommodations.Remove(accommodation);
+                    await _db.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToPage(new { guid = travelPlanId });
+        }
+
+        public async Task<IActionResult> OnPostDeleteTransportationAsync(Guid travelPlanId, Guid destinationId, Guid transportationId)
+        {
+            var travelPlan = await _db.TravelPlans
+                .Include(tp => tp.Destinations)
+                    .ThenInclude(d => d.Transportations)
+                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+
+            if (travelPlan == null)
+            {
+                return NotFound();
+            }
+
+            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            if (destination != null)
+            {
+                var transportation = destination.Transportations.FirstOrDefault(t => t.Id == transportationId);
+                if (transportation != null)
+                {
+                    destination.Transportations.Remove(transportation);
+                    await _db.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToPage(new { guid = travelPlanId });
         }
     }
 }
