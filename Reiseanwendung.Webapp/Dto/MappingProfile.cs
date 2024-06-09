@@ -2,15 +2,16 @@
 using Reiseanwendung.Application.Model;
 using Reiseanwendung.Webapp.Dto.Reiseanwendung.Webapp.TravelplanDto;
 
-namespace Reiseanwendung.Webapp.Dto
+public class MappingProfile : Profile
 {
-    public class MappingProfile : Profile
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            CreateMap<TravelplanDto, TravelPlan>();
-            CreateMap<TravelPlan, TravelplanDto>();
-        
-        }
+        CreateMap<TravelplanDto, TravelPlan>();
+        CreateMap<DestinationDto, Destination>();
+        CreateMap<ActivityDto, Activity>();
+        CreateMap<AccommodationDto, Accommodation>();
+        CreateMap<TransportationDto, Transportation>();
+        CreateMap<AddressDto, Address>();
+        CreateMap<PersonDto, Person>(); // Ensure this mapping exists
     }
 }

@@ -61,7 +61,7 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             // Save all changes to the database
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Reiseplan/BulkPage");
+            return RedirectToPage("/Reiseplan/Index");
         }
     }
 }

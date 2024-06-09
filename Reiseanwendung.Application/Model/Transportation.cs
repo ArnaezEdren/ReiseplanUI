@@ -12,13 +12,13 @@ namespace Reiseanwendung.Application.Model
         public bool IsRoundTrip { get; set; } // Indicates if it's a round-trip or one-way
         public decimal Cost { get; set; } // Added Cost
 
-        protected Transportation()
+        public Transportation()
         {
             Id = Guid.NewGuid();
             BookingNumber = Guid.NewGuid().ToString();
         }
 
-        protected Transportation(string type, string bookingNumber, bool isRoundTrip, decimal cost)
+        public Transportation(string type, string bookingNumber, bool isRoundTrip, decimal cost)
         {
             Id = Guid.NewGuid();
             Type = type;

@@ -11,7 +11,6 @@ namespace Reiseanwendung.Application.Infrastructure
         public ReiseplanContext(DbContextOptions<ReiseplanContext> options) : base(options)
         {
         }
-
         public DbSet<Accommodation> Accommodations => Set<Accommodation>();
         public DbSet<Activity> Activities => Set<Activity>();
         public DbSet<Booking> Bookings => Set<Booking>();
@@ -73,10 +72,10 @@ namespace Reiseanwendung.Application.Infrastructure
                 .HasKey(t => t.Id);
 
             modelBuilder.Entity<TravelPlan>()
-      .HasMany(tp => tp.Destinations)
-      .WithOne(d => d.TravelPlan)
-      .HasForeignKey(d => d.TravelPlanId)
-      .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+                .HasMany(tp => tp.Destinations)
+                .WithOne(d => d.TravelPlan)
+                .HasForeignKey(d => d.TravelPlanId)
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
 
             modelBuilder.Entity<Destination>()
                 .HasMany(d => d.Activities)

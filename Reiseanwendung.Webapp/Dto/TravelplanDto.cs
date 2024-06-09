@@ -1,33 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using Reiseanwendung.Application.Model;
 
-namespace Reiseanwendung.Webapp.Dto
+namespace Reiseanwendung.Webapp.Dto.Reiseanwendung.Webapp.TravelplanDto
 {
-    using System;
-
-    using System.ComponentModel.DataAnnotations;
-    using global::Reiseanwendung.Webapp.Pages.Reiseplan.Validation;
-
-
-    namespace Reiseanwendung.Webapp.TravelplanDto
+    public class TravelplanDto
     {
-        public record TravelplanDto(
-            Guid Id,
-
-            [Required(ErrorMessage = "Name is required")]
-        [StringLength(100, ErrorMessage = "Name length can't be more than 100.")]
-        string? Name,
-
-            [Required(ErrorMessage = "Start date is required")]
-        [FutureDate(ErrorMessage = "Start date must be in the future and not the same as the current date")]
-        DateTime StartDate,
-
-            [Required(ErrorMessage = "End date is required")]
-        [DateGreaterThan("StartDate", ErrorMessage = "End date must be greater than start date")]
-        DateTime EndDate
-
-             );
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public List<DestinationDto> Destinations { get; set; } = new List<DestinationDto>();  // Initialize to avoid null reference
+        public List<PersonDto> People { get; set; } = new List<PersonDto>();  // Initialize to avoid null reference
     }
 
+    public class DestinationDto
+    {
+        public string City { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public string Country { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public List<ActivityDto> Activities { get; set; } = new List<ActivityDto>();  // Initialize to avoid null reference
+        public List<AccommodationDto> Accommodations { get; set; } = new List<AccommodationDto>();  // Initialize to avoid null reference
+        public List<TransportationDto> Transportations { get; set; } = new List<TransportationDto>();  // Initialize to avoid null reference
+    }
+
+    public class ActivityDto
+    {
+        public string Name { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public string Description { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
+    }
+
+    public class AccommodationDto
+    {
+        public string Name { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public AddressDto Address { get; set; } = new AddressDto();  // Initialize to avoid null reference
+    }
+
+    public class TransportationDto
+    {
+        public string Type { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public string BookingNumber { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public bool IsRoundTrip { get; set; }
+        public decimal Cost { get; set; }
+    }
+
+    public class AddressDto
+    {
+        public string Street { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public string City { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public string Country { get; set; } = string.Empty;  // Initialize to avoid null reference
+        public string ZipCode { get; set; } = string.Empty;  // Initialize to avoid null reference
+    }
 }

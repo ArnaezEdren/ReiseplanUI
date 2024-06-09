@@ -8,74 +8,87 @@
     <h4>StartDate: @Model.TravelPlan.StartDate</h4>
     <h4>EndDate: @Model.TravelPlan.EndDate</h4>
 
-    @foreach (var destination in Model.TravelPlan.Destinations)
-    {
-        <div>
-            <h5>Destination: @destination.City, @destination.Country</h5>
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th>Persons</th>
-                        <th>Activities</th>
-                        <th>Accommodations</th>
-                        <th>Transportations</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <ul>
-                                @foreach (var person in Model.TravelPlan.People)
-                                {
-                                    <li>@person.Name</li>
-                                }
-                            </ul>
-                        </td>
-
-                        <td>
-                            <ul>
-                                @foreach (var activity in destination.Activities)
-                                {
-                                    <li>@activity.Name (@activity.StartDateTime.ToString("yyyy-MM-dd HH:mm") - @activity.EndDateTime.ToString("yyyy-MM-dd HH:mm"))</li>
-                                    <ul>
-                                        @foreach (var booking in activity.Bookings)
-                                        {
-                                            <li>Booking Number: @booking.BookingNumber, Cost: @(booking.Cost?.ToString("C") ?? "N/A") on @booking.Date.ToString("yyyy-MM-dd")</li>
-                                        }
-                                    </ul>
-                                }
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                @foreach (var accommodation in destination.Accommodations)
-                                {
-                                    <li>@accommodation.Name - @accommodation.GetFullAddress()</li>
-                                    <ul>
-                                        @foreach (var booking in accommodation.Bookings)
-                                        {
-                                            <li>Booking Number: @booking.BookingNumber, Cost: @(booking.Cost?.ToString("C") ?? "N/A") on @booking.Date.ToString("yyyy-MM-dd")</li>
-                                        }
-                                    </ul>
-                                }
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                @foreach (var transportation in destination.Transportations)
-                                {
-                                    <li>@transportation.Type - Booking Number: @transportation.BookingNumber, Round Trip: @(transportation.IsRoundTrip ? "Yes" : "No"), Cost: @(transportation.Cost.ToString("C") ?? "N/A")</li>
-                                }
-                            </ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="d-flex">
+        <!-- Buttons on the left side -->
+        <div class="mr-3 mb-3">
+            <a asp-page="/Reiseplan/AddDestination" asp-route-travelPlanId="@Model.TravelPlan.Id" class="btn btn-primary">Add Destination</a>
         </div>
-    }
+
+        <!-- Content on the right side -->
+        <div class="flex-grow-1">
+            <h5>Persons</h5>
+            <ul>
+                @foreach (var person in Model.TravelPlan.People)
+                {
+                    <li>@person.Name</li>
+                }
+            </ul>
+
+            @foreach (var destination in Model.TravelPlan.Destinations)
+            {
+                <div class="mb-4">
+                    <h5>Destination: @destination.City, @destination.Country</h5>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Activities</th>
+                                <th>Accommodations</th>
+                                <th>Transportations</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <ul>
+                                        @foreach (var activity in destination.Activities)
+                                        {
+                                            <li>@activity.Name (@activity.StartDateTime.ToString("yyyy-MM-dd HH:mm") - @activity.EndDateTime.ToString("yyyy-MM-dd HH:mm"))</li>
+                                            <ul>
+                                                @foreach (var booking in activity.Bookings)
+                                                {
+                                                    <li>Booking Number: @booking.BookingNumber, Cost: @(booking.Cost?.ToString("C") ?? "N/A") on @booking.Date.ToString("yyyy-MM-dd")</li>
+                                                }
+                                            </ul>
+                                        }
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach (var accommodation in destination.Accommodations)
+                                        {
+                                            <li>@accommodation.Name - @($"{accommodation.Address.Street}, {accommodation.Address.City}, {accommodation.Address.Country}, {accommodation.Address.ZipCode}")</li>
+                                            <ul>
+                                                @foreach (var booking in accommodation.Bookings)
+                                                {
+                                                    <li>Booking Number: @booking.BookingNumber, Cost: @(booking.Cost?.ToString("C") ?? "N/A") on @booking.Date.ToString("yyyy-MM-dd")</li>
+                                                }
+                                            </ul>
+                                        }
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        @foreach (var transportation in destination.Transportations)
+                                        {
+                                            <li>@transportation.Type - Booking Number: @transportation.BookingNumber, Round Trip: @(transportation.IsRoundTrip ? "Yes" : "No"), Cost: @(transportation.Cost.ToString("C") ?? "N/A")</li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
     <h4>Total Cost: @Model.TotalCost?.ToString("C")</h4>
 }
 else
 {
     <p>Travel plan details not found.</p>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
