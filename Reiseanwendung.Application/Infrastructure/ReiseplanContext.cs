@@ -71,6 +71,42 @@ namespace Reiseanwendung.Application.Infrastructure
 
             modelBuilder.Entity<TravelPlanService>()
                 .HasKey(t => t.Id);
+
+            modelBuilder.Entity<TravelPlan>()
+      .HasMany(tp => tp.Destinations)
+      .WithOne(d => d.TravelPlan)
+      .HasForeignKey(d => d.TravelPlanId)
+      .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+
+            modelBuilder.Entity<Destination>()
+                .HasMany(d => d.Activities)
+                .WithOne()
+                .HasForeignKey("DestinationId")
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+
+            modelBuilder.Entity<Destination>()
+                .HasMany(d => d.Accommodations)
+                .WithOne()
+                .HasForeignKey("DestinationId")
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+
+            modelBuilder.Entity<Destination>()
+                .HasMany(d => d.Transportations)
+                .WithOne()
+                .HasForeignKey("DestinationId")
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+
+            modelBuilder.Entity<Activity>()
+                .HasMany(a => a.Bookings)
+                .WithOne()
+                .HasForeignKey("ActivityId")
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
+
+            modelBuilder.Entity<Accommodation>()
+                .HasMany(a => a.Bookings)
+                .WithOne()
+                .HasForeignKey("AccommodationId")
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete
         }
 
 

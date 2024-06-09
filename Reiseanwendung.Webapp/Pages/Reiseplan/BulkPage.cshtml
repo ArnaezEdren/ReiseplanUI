@@ -1,0 +1,65 @@
+﻿@page
+@model Reiseanwendung.Webapp.Pages.Reiseplan.BulkPageModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Bulk Edit";
+}
+
+<h1>Bulk Edit Travel Plans</h1>
+
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="travelPlansTableBody">
+            @for (int i = 0; i < Model.TravelPlans.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" asp-for="TravelPlans[i].Id" />
+                        <input asp-for="TravelPlans[i].Name" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="TravelPlans[i].StartDate" class="form-control" type="date" />
+                    </td>
+                    <td>
+                        <input asp-for="TravelPlans[i].EndDate" class="form-control" type="date" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="removeRow(this)">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-success">Save All</button>
+</form>
+
+@section Scripts {
+    <script>
+        function removeRow(button) {
+            const row = button.closest("tr");
+            row.parentNode.removeChild(row);
+            updateRowIndices();
+        }
+
+        function updateRowIndices() {
+            const tableBody = document.getElementById("travelPlansTableBody");
+            Array.from(tableBody.children).forEach((row, index) => {
+                row.querySelectorAll("input[name^='TravelPlans']").forEach(input => {
+                    const name = input.name;
+                    const newName = name.replace(/\[.*?\]/, `[${index}]`);
+                    input.name = newName;
+                });
+            });
+        }
+    </script>
+}

@@ -8,7 +8,7 @@ namespace Reiseanwendung.Application.Model
     [Table("Travelplan")]
     public class TravelPlan
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
         public string? Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
