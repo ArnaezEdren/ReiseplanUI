@@ -20,10 +20,12 @@
             <th>Name</th>
             <th>StartDate</th>
             <th>EndDate</th>
-          
             <th>Destinations</th>
             <th>Details</th>
             <th>Action</th>
+            <th>Activities</th>
+            <th>Accommodations</th>
+            <th>Transportations</th>
         </tr>
     </thead>
     <tbody>
@@ -44,7 +46,9 @@
                 </td>
                 <td><a asp-page="/Reiseplan/Details" asp-route-guid="@t.Id">Details</a></td>
                 <td><a asp-page="/Reiseplan/Edit" asp-route-guid="@t.Id">Edit</a></td>
-                <td><a asp-page="/Reiseplan/Bulkpage">Bulkpage</a></td>
+                <td>@t.Destinations.Sum(d => d.Activities.Count)</td>
+                <td>@t.Destinations.Sum(d => d.Accommodations.Count)</td>
+                <td>@t.Destinations.Sum(d => d.Transportations.Count)</td>
             </tr>
         }
     </tbody>
