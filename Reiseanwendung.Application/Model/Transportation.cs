@@ -12,6 +12,10 @@ namespace Reiseanwendung.Application.Model
         public string BookingNumber { get; set; }
         public bool IsRoundTrip { get; set; }
         public decimal Cost { get; set; }
+        public Guid DestinationGuid { get; set; }
+
+
+        public Destination? Destination { get; set; }
 
         public Transportation()
         {

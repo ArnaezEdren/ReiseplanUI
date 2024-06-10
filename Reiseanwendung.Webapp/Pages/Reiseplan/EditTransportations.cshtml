@@ -1,0 +1,34 @@
+﻿@page "{guid}"
+@model Reiseanwendung.Webapp.Pages.Reiseplan.EditTransportationsModel
+
+<h2>Edit Transportation</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Transportation.Guid" />
+    <div class="form-group">
+        <label asp-for="Transportation.Type" class="control-label"></label>
+        <input asp-for="Transportation.Type" class="form-control" />
+        <span asp-validation-for="Transportation.Type" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Transportation.BookingNumber" class="control-label"></label>
+        <input asp-for="Transportation.BookingNumber" class="form-control" />
+        <span asp-validation-for="Transportation.BookingNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Transportation.IsRoundTrip" class="control-label"></label>
+        <input asp-for="Transportation.IsRoundTrip" class="form-control" />
+        <span asp-validation-for="Transportation.IsRoundTrip" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Transportation.Cost" class="control-label"></label>
+        <input asp-for="Transportation.Cost" class="form-control" />
+        <span asp-validation-for="Transportation.Cost" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="Details" asp-route-guid="@Model.Transportation.Guid" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

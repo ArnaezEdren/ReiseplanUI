@@ -1,10 +1,18 @@
-﻿namespace Reiseanwendung.Webapp.Dto
-{
-    public class PersonDto
-    {
-        public Guid Guid { get; private set; }
+﻿using System.ComponentModel.DataAnnotations;
 
-        public string Name { get; set; } = string.Empty;  // Initialize to avoid null reference
-        public string Role { get; set; } = string.Empty;  // Initialize to avoid null reference
+namespace Reiseanwendung.Webapp.Dto
+{
+    public record PersonDto
+    {
+  
+  
+            public Guid Guid { get; set; }
+            public int Id { get; set; }
+
+            [Required(ErrorMessage = "Person name is required.")]
+            public string? Name { get; set; }
+            public string? Role { get; set; }
+        
+        
     }
 }

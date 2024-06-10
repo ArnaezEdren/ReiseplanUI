@@ -14,15 +14,22 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan.Validation
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            var currentValue = (DateTime?)value;
+            if (value is null)
+            {
+                return ValidationResult.Success; // Treat null as valid for this custom attribute
+            }
+
+            var currentValue = (DateTime)value;
 
             var property = validationContext.ObjectType.GetProperty(_comparisonProperty);
             if (property == null)
+            {
                 throw new ArgumentException("Property with this name not found");
+            }
 
             var comparisonValue = (DateTime?)property.GetValue(validationContext.ObjectInstance);
 
-            if (currentValue.HasValue && comparisonValue.HasValue && currentValue <= comparisonValue)
+            if (comparisonValue.HasValue && currentValue <= comparisonValue.Value)
             {
                 return new ValidationResult(ErrorMessage);
             }

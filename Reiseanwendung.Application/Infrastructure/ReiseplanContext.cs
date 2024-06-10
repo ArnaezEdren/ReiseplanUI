@@ -45,11 +45,7 @@ namespace Reiseanwendung.Application.Infrastructure
                 .WithOne()
                 .HasForeignKey("DestinationId");
 
-            modelBuilder.Entity<Activity>()
-                .HasMany(a => a.Bookings)
-                .WithOne(b => b.Activity)
-                .HasForeignKey(b => b.ActivityId);
-
+ 
             modelBuilder.Entity<Accommodation>()
                 .HasMany(a => a.Bookings)
                 .WithOne(b => b.Accommodation)
@@ -101,11 +97,7 @@ namespace Reiseanwendung.Application.Infrastructure
                 .HasForeignKey("DestinationId")
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Activity>()
-                .HasMany(a => a.Bookings)
-                .WithOne(b => b.Activity)
-                .HasForeignKey(b => b.ActivityId)
-                .OnDelete(DeleteBehavior.Cascade);
+         
 
             modelBuilder.Entity<Accommodation>()
                 .HasMany(a => a.Bookings)
@@ -213,14 +205,8 @@ namespace Reiseanwendung.Application.Infrastructure
                 destinations[i].AddTransportation(transportations[i % transportations.Count]);
 
                 // Ensure that accommodations[i].Bookings and activities[i].Bookings are not null
-                accommodations[i].Bookings ??= new List<Booking>();
-                activities[i].Bookings ??= new List<Booking>();
+              
 
-                accommodations[i].Bookings.Add(bookings[i]);
-                activities[i].Bookings.Add(bookings[i]);
-                destinations[i].AddActivity(activities[(i + 20) % activities.Count]);
-                destinations[i].AddTransportation(transportations[(i + 20) % transportations.Count]);
-                activities[(i + 20) % activities.Count].Bookings.Add(bookings[(i + 20) % bookings.Count]);
             }
 
             for (int i = 0; i < 10; i++)

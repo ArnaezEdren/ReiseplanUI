@@ -1,0 +1,39 @@
+﻿@page "{guid}"
+@model Reiseanwendung.Webapp.Pages.Reiseplan.EditAccommodationsModel
+
+<h2>Edit Accommodation</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Accommodation.Guid" />
+    <div class="form-group">
+        <label asp-for="Accommodation.Name" class="control-label"></label>
+        <input asp-for="Accommodation.Name" class="form-control" />
+        <span asp-validation-for="Accommodation.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Accommodation.Address.Street" class="control-label"></label>
+        <input asp-for="Accommodation.Address.Street" class="form-control" />
+        <span asp-validation-for="Accommodation.Address.Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Accommodation.Address.City" class="control-label"></label>
+        <input asp-for="Accommodation.Address.City" class="form-control" />
+        <span asp-validation-for="Accommodation.Address.City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Accommodation.Address.Country" class="control-label"></label>
+        <input asp-for="Accommodation.Address.Country" class="form-control" />
+        <span asp-validation-for="Accommodation.Address.Country" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Accommodation.Address.ZipCode" class="control-label"></label>
+        <input asp-for="Accommodation.Address.ZipCode" class="form-control" />
+        <span asp-validation-for="Accommodation.Address.ZipCode" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="Reiseplan/Details" asp-route-guid="@Model.Accommodation.Guid" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

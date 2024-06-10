@@ -11,6 +11,10 @@ namespace Reiseanwendung.Application.Model
 
         [Required]
         public string? Name { get; set; }
+        public Guid DestinationGuid { get; set; }
+
+        // Navigation property
+        public Destination? Destination { get; set; }
 
         [Required]
         public Address Address { get; set; } = new Address();

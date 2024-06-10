@@ -42,6 +42,7 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
                 if (!TravelPlans.Any(tp => tp.Id == plan.Id))
                 {
                     _db.TravelPlans.Remove(plan);
+                  
                 }
             }
 

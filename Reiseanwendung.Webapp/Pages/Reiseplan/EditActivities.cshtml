@@ -1,0 +1,34 @@
+﻿@page "{guid}"
+@model Reiseanwendung.Webapp.Pages.Reiseplan.EditActivitiesModel
+
+<h2>Edit Activity</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Activity.Guid" />
+    <div class="form-group">
+        <label asp-for="Activity.Name" class="control-label"></label>
+        <input asp-for="Activity.Name" class="form-control" />
+        <span asp-validation-for="Activity.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Activity.StartDateTime" class="control-label"></label>
+        <input asp-for="Activity.StartDateTime" class="form-control" />
+        <span asp-validation-for="Activity.StartDateTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Activity.EndDateTime" class="control-label"></label>
+        <input asp-for="Activity.EndDateTime" class="form-control" />
+        <span asp-validation-for="Activity.EndDateTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Activity.Description" class="control-label"></label>
+        <textarea asp-for="Activity.Description" class="form-control"></textarea>
+        <span asp-validation-for="Activity.Description" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="Details" asp-route-guid="@Model.TravelPlanGuid" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

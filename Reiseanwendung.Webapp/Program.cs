@@ -27,6 +27,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<ReiseplanRepository>(); // Register the ReiseplanRepository
 
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
@@ -34,3 +35,5 @@ app.UseStaticFiles();
 app.MapRazorPages();
 
 app.Run();
+
+

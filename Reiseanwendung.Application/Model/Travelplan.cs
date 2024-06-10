@@ -35,11 +35,8 @@ namespace Reiseanwendung.Application.Model
             Destinations.Add(destination);
         }
 
-        public decimal CalculateTotalCost()
-        {
-            return Destinations.Sum(dest => dest.Accommodations.Sum(acc => acc.Bookings.Sum(bk => bk.Cost) ?? 0) +
-                                                dest.Activities.Sum(act => act.Bookings.Sum(bk => bk.Cost) ?? 0));
-        }
+   
+        
 
         public int GetTotalNumberOfActivities()
         {

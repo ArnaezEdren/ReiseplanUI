@@ -159,19 +159,19 @@
             let personDiv = document.createElement('div');
             personDiv.className = 'person';
             personDiv.innerHTML = `
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input name="NewTravelPlan.People[${personCount}].Name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Role</label>
-                            <select name="NewTravelPlan.People[${personCount}].Role" class="form-control">
-                                <option value="Traveler">Traveler</option>
-                                <option value="Guide">Guide</option>
-                             
-                            </select>
-                        </div>
-                    `;
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input name="NewTravelPlan.People[${personCount}].Name" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <select name="NewTravelPlan.People[${personCount}].Role" class="form-control">
+                                        <option value="Traveler">Traveler</option>
+                                        <option value="Guide">Guide</option>
+
+                                    </select>
+                                </div>
+                            `;
             personsDiv.appendChild(personDiv);
             personCount++;
         }

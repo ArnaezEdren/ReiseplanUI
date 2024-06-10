@@ -1,38 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Reiseanwendung.Application.Model
 {
-    [Table("Activity")]
     public class Activity : IEntity<int>
     {
-        public Guid Guid { get; private set; }
+        public Guid Guid { get; set; }
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
-        public int DurationInHours { get; set; }
-        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
-        public Activity()
-        {
+        [Required]
+        public string? Name { get; set; }
+
+        public string? Description { get; set; }
+
+        [Required]
+        public DateTime StartDateTime { get; set; }
+
+        [Required]
+        public DateTime EndDateTime { get; set; }
+
+        // Foreign key
+        public Guid DestinationGuid { get; set; }
+
+        // Navigation property
+        public Destination? Destination { get; set; }
+
+
+        public Activity() {
             Guid = Guid.NewGuid();
         }
+       
 
-        public Activity(string name, string description, DateTime startDateTime, DateTime endDateTime) : this()
+        public Activity(string name, string description, DateTime startDateTime, DateTime endDateTime)
         {
-            Name = name;
-            Description = description;
-            StartDateTime = startDateTime;
-            EndDateTime = endDateTime;
-            DurationInHours = (int)(endDateTime - startDateTime).TotalHours;
+     
+            Name=name;
+            Description=description;
+            StartDateTime=startDateTime;
+            EndDateTime=endDateTime;
 
-            if (DurationInHours <= 0)
-            {
-                throw new ArgumentException("Die Endzeit muss nach der Startzeit liegen.");
-            }
         }
     }
+
+ 
 }

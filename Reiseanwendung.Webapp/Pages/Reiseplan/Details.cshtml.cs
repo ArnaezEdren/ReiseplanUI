@@ -26,7 +26,7 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             var travelPlan = _db.TravelPlans
                 .Include(tp => tp.Destinations)
                     .ThenInclude(d => d.Activities)
-                        .ThenInclude(a => a.Bookings)
+                     
                 .Include(tp => tp.Destinations)
                     .ThenInclude(d => d.Accommodations)
                         .ThenInclude(a => a.Bookings)
@@ -43,12 +43,7 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             TravelPlan = travelPlan;
 
             // Calculate total cost
-            TotalCost = travelPlan.Destinations.Sum(d =>
-                d.Accommodations.Sum(a => a.Bookings.Sum(b => (decimal?)b.Cost) ?? 0) +
-                d.Activities.Sum(a => a.Bookings.Sum(b => (decimal?)b.Cost) ?? 0) +
-                d.Transportations.Sum(t => (decimal?)t.Cost ?? 0)
-            );
-
+       
             return Page();
         }
 
