@@ -27,7 +27,7 @@
             <th>EndDate</th>
             <th>Destinations</th>
             <th>Details</th>
-            <th>Action</th>
+        
             <th>Activities</th>
             <th>Accommodations</th>
             <th>Transportations</th>
@@ -50,7 +50,7 @@
                     </ul>
                 </td>
                 <td><a asp-page="/Reiseplan/Details" asp-route-guid="@t.Guid">Details</a></td>
-                <td><a asp-page="/Reiseplan/Edit" asp-route-guid="@t.Guid">Edit</a></td>
+            
                 <td>@t.Destinations.Sum(d => d.Activities.Count)</td>
                 <td>@t.Destinations.Sum(d => d.Accommodations.Count)</td>
                 <td>@t.Destinations.Sum(d => d.Transportations.Count)</td>

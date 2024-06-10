@@ -7,8 +7,9 @@ namespace Reiseanwendung.Application.Model
 {
     public class TravelPlanService
     {
-        public int Id { get; set; }
         public Guid Guid { get; private set; }
+        public int Id { get; set; }
+   
         private readonly ReiseplanContext _context;
 
         public TravelPlanService(ReiseplanContext context)

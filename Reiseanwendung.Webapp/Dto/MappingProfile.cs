@@ -14,7 +14,7 @@ public class MappingProfile : Profile
         CreateMap<AccommodationDto, Accommodation>();
         CreateMap<TransportationDto, Transportation>();
         CreateMap<AddressDto, Address>();
-        CreateMap<PersonDto, Person>(); // Ensure this mapping exists
+        CreateMap<PersonDto, Person>(); 
 
         CreateMap<TravelPlan, TravelplanDto>();
 
@@ -23,6 +23,6 @@ public class MappingProfile : Profile
         CreateMap<Accommodation, AccommodationDto>();
         CreateMap<Transportation, TransportationDto>();
         CreateMap<Address, AddressDto>();
-        CreateMap<Person, PersonDto>(); // Ensure this mapping exists
+        CreateMap<Person, PersonDto>(); 
     }
 }

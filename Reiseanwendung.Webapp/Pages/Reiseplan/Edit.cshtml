@@ -1,29 +1,72 @@
-﻿@page "{guid}"
+﻿@page "{travelPlanId}/{destinationId}"
 @model Reiseanwendung.Webapp.Pages.Reiseplan.EditModel
-@{
-}
+
+<h2>Edit Destination</h2>
+
 <form method="post">
-    <input type="hidden" asp-for="TravelPlan.Id" />
+    <input type="hidden" asp-for="TravelPlan.Guid" />
+    <input type="hidden" asp-for="Destination.Guid" />
 
     <div>
-        <label asp-for="TravelPlan.Name"></label>
-        <input asp-for="TravelPlan.Name" />
-        <span asp-validation-for="TravelPlan.Name" class="text-danger"></span>
+        <label asp-for="Destination.City"></label>
+        <input asp-for="Destination.City" class="form-control" />
+        <span asp-validation-for="Destination.City" class="text-danger"></span>
     </div>
 
     <div>
-        <label asp-for="TravelPlan.StartDate"></label>
-        <input asp-for="TravelPlan.StartDate" type="datetime-local" value="@Model.TravelPlan.StartDate.ToString("yyyy-MM-ddTHH:mm")" />
-        <span asp-validation-for="TravelPlan.StartDate" class="text-danger"></span>
+        <label asp-for="Destination.Country"></label>
+        <input asp-for="Destination.Country" class="form-control" />
+        <span asp-validation-for="Destination.Country" class="text-danger"></span>
     </div>
 
-    <div>
-        <label asp-for="TravelPlan.EndDate"></label>
-        <input asp-for="TravelPlan.EndDate" type="datetime-local" value="@Model.TravelPlan.EndDate.ToString("yyyy-MM-ddTHH:mm")" />
-        <span asp-validation-for="TravelPlan.EndDate" class="text-danger"></span>
-    </div>
+    <h5>Activities</h5>
+    @for (var i = 0; i < Model.Destination.Activities.Count; i++)
+    {
+        <div class="form-group">
+            <label asp-for="Destination.Activities[i].Name"></label>
+            <input asp-for="Destination.Activities[i].Name" class="form-control" />
+            <label asp-for="Destination.Activities[i].StartDateTime"></label>
+            <input asp-for="Destination.Activities[i].StartDateTime" type="datetime-local" class="form-control" value="@Model.Destination.Activities[i].StartDateTime.ToString("yyyy-MM-ddTHH:mm")" />
+            <label asp-for="Destination.Activities[i].EndDateTime"></label>
+            <input asp-for="Destination.Activities[i].EndDateTime" type="datetime-local" class="form-control" value="@Model.Destination.Activities[i].EndDateTime.ToString("yyyy-MM-ddTHH:mm")" />
+        </div>
+    }
 
-    <button type="submit">Save</button>
+    <h5>Accommodations</h5>
+    @for (var j = 0; j < Model.Destination.Accommodations.Count; j++)
+    {
+        <div class="form-group">
+            <label asp-for="Destination.Accommodations[j].Name"></label>
+            <input asp-for="Destination.Accommodations[j].Name" class="form-control" />
+            <div>
+                <label asp-for="Destination.Accommodations[j].Address.Street"></label>
+                <input asp-for="Destination.Accommodations[j].Address.Street" class="form-control" />
+                <label asp-for="Destination.Accommodations[j].Address.City"></label>
+                <input asp-for="Destination.Accommodations[j].Address.City" class="form-control" />
+                <label asp-for="Destination.Accommodations[j].Address.Country"></label>
+                <input asp-for="Destination.Accommodations[j].Address.Country" class="form-control" />
+                <label asp-for="Destination.Accommodations[j].Address.ZipCode"></label>
+                <input asp-for="Destination.Accommodations[j].Address.ZipCode" class="form-control" />
+            </div>
+        </div>
+    }
+
+    <h5>Transportations</h5>
+    @for (var k = 0; k < Model.Destination.Transportations.Count; k++)
+    {
+        <div class="form-group">
+            <label asp-for="Destination.Transportations[k].Type"></label>
+            <input asp-for="Destination.Transportations[k].Type" class="form-control" />
+            <label asp-for="Destination.Transportations[k].BookingNumber"></label>
+            <input asp-for="Destination.Transportations[k].BookingNumber" class="form-control" />
+            <label asp-for="Destination.Transportations[k].Cost"></label>
+            <input asp-for="Destination.Transportations[k].Cost" class="form-control" />
+            <label asp-for="Destination.Transportations[k].IsRoundTrip"></label>
+            <input asp-for="Destination.Transportations[k].IsRoundTrip" type="checkbox" class="form-check-input" />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
 @section Scripts {

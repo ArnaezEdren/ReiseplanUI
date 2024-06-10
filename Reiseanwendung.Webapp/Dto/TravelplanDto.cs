@@ -5,8 +5,9 @@ namespace Reiseanwendung.Webapp.Dto.Reiseanwendung.Webapp.TravelplanDto
 {
     public class TravelplanDto
     {
-        public int Id { get; set; }
+       
         public Guid Guid { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
         public string? Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

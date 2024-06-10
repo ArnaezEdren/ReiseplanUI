@@ -2,7 +2,7 @@
 {
     public class PersonDto
     {
- 
+        public Guid Guid { get; private set; }
 
         public string Name { get; set; } = string.Empty;  // Initialize to avoid null reference
         public string Role { get; set; } = string.Empty;  // Initialize to avoid null reference

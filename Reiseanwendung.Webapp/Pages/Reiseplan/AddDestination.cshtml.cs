@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Reiseanwendung.Application.Infrastructure;
 using Reiseanwendung.Application.Model;
 using System;
@@ -33,7 +34,9 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
                 return Page();
             }
 
-            var travelPlan = await _db.TravelPlans.FindAsync(travelPlanId);
+            var travelPlan = await _db.TravelPlans
+                  .Include(tp => tp.Destinations)
+                  .FirstOrDefaultAsync(tp => tp.Guid == travelPlanId);
             if (travelPlan == null)
             {
                 return NotFound();
