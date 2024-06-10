@@ -1,17 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Reiseanwendung.Application.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
-
     public class TravelPlanService
     {
         public int Id { get; set; }
+        public Guid Guid { get; private set; }
         private readonly ReiseplanContext _context;
 
         public TravelPlanService(ReiseplanContext context)
@@ -21,10 +18,10 @@ namespace Reiseanwendung.Application.Model
 
         public bool IsGuideAvailable(Guid guideId, Guid travelPlanId)
         {
+            var travelPlan = _context.TravelPlans.Include(tp => tp.People).FirstOrDefault(tp => tp.Guid == travelPlanId);
 
-            var travelPlan = _context.TravelPlans.Include(tp => tp.People).FirstOrDefault(tp => tp.Id == travelPlanId);
-            return travelPlan?.People.Any(person => person.Id == guideId && person is Guide) ?? false;
+            // Sicherstellen, dass travelPlan und People nicht null sind
+            return travelPlan?.People != null && travelPlan.People.Any(person => person.Guid == guideId && person is Guide);
         }
     }
-
 }

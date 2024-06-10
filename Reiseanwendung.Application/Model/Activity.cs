@@ -5,9 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Reiseanwendung.Application.Model
 {
     [Table("Activity")]
-    public class Activity
+    public class Activity : IEntity<int>
     {
-        public Guid Id { get; set; }
+        public Guid Guid { get; private set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public DateTime StartDateTime { get; set; }
@@ -15,11 +16,13 @@ namespace Reiseanwendung.Application.Model
         public int DurationInHours { get; set; }
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
-        public Activity() { }
-
-        public Activity(string name, string description, DateTime startDateTime, DateTime endDateTime)
+        public Activity()
         {
-            Id = Guid.NewGuid();
+            Guid = Guid.NewGuid();
+        }
+
+        public Activity(string name, string description, DateTime startDateTime, DateTime endDateTime) : this()
+        {
             Name = name;
             Description = description;
             StartDateTime = startDateTime;

@@ -1,9 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Reiseanwendung.Application.Infrastructure;
 using Reiseanwendung.Application.Model;
+using Reiseanwendung.Webapp.Dto;
 using Reiseanwendung.Webapp.Dto.Reiseanwendung.Webapp.TravelplanDto;
-using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,9 +23,22 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             {
                 new DestinationDto
                 {
-                    Activities = new List<ActivityDto> { new ActivityDto() },
-                    Accommodations = new List<AccommodationDto> { new AccommodationDto { Address = new AddressDto() } },
-                    Transportations = new List<TransportationDto> { new TransportationDto() }
+                    Activities = new List<ActivityDto>
+                    {
+                        new ActivityDto
+                        {
+                            StartDateTime = DateTime.Now,
+                            EndDateTime = DateTime.Now
+                        }
+                    },
+                    Accommodations = new List<AccommodationDto>
+                    {
+                        new AccommodationDto
+                        {
+                            Address = new AddressDto()
+                        }
+                    },
+                    Transportations = new List<TransportationDto>()
                 }
             },
             People = new List<PersonDto> { new PersonDto() }

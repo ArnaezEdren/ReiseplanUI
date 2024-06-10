@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
-    internal class IEntity
+    public interface IEntity<Tkey> where Tkey : struct
     {
+        Tkey Id { get; } 
+        Guid Guid { get;  }
+
+        bool Equals(object obj);
     }
 }

@@ -4,23 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Reiseanwendung.Application.Model
 {
     [Table("Transportation")]
-    public class Transportation
+    public class Transportation : IEntity<int>
     {
-        public Guid Id { get; set; }
+        public Guid Guid { get; private set; }
+        public int Id { get; set; }
         public string? Type { get; set; }
-        public string BookingNumber { get; set; } // Added BookingNumber
-        public bool IsRoundTrip { get; set; } // Indicates if it's a round-trip or one-way
-        public decimal Cost { get; set; } // Added Cost
+        public string BookingNumber { get; set; }
+        public bool IsRoundTrip { get; set; }
+        public decimal Cost { get; set; }
 
         public Transportation()
         {
-            Id = Guid.NewGuid();
+            Guid = Guid.NewGuid();
             BookingNumber = Guid.NewGuid().ToString();
         }
 
-        public Transportation(string type, string bookingNumber, bool isRoundTrip, decimal cost)
+        public Transportation(string type, string bookingNumber, bool isRoundTrip, decimal cost) : this()
         {
-            Id = Guid.NewGuid();
             Type = type;
             BookingNumber = bookingNumber;
             IsRoundTrip = isRoundTrip;

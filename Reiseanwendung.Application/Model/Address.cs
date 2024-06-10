@@ -1,34 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
     [Table("Address")]
-
-    public class Address
+    public class Address : IEntity<int>
     {
-        public Guid Id { get; set; }  // Add this line
+        public Guid Guid { get; private set; }
+        public int Id { get; set; }
         public string? Street { get; set; }
         public string? City { get; set; }
         public string? Country { get; set; }
         public string? ZipCode { get; set; }
 
-
-        public Address() { }
-
-        public Address(string street, string city, string country, string zipCode)
+        public Address()
         {
-            Id = Guid.NewGuid();  // Initialize the Id
+            Guid = Guid.NewGuid();
+        }
+
+        public Address(string street, string city, string country, string zipCode) : this()
+        {
             Street = street;
             City = city;
             Country = country;
             ZipCode = zipCode;
         }
-
 
         protected bool Equals(Address other)
         {
@@ -47,8 +43,5 @@ namespace Reiseanwendung.Application.Model
         {
             return HashCode.Combine(Street, City, Country, ZipCode);
         }
-
-
     }
-
 }

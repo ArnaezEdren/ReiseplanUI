@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Reiseanwendung.Application.Infrastructure;
 using Reiseanwendung.Application.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,14 +37,14 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
 
             var travelPlan = await _db.TravelPlans
                 .Include(tp => tp.Destinations)
-                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+                .FirstOrDefaultAsync(tp => tp.Guid == travelPlanId);
 
             if (travelPlan == null)
             {
                 return NotFound();
             }
 
-            Destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            Destination = travelPlan.Destinations.FirstOrDefault(d => d.Guid == destinationId);
             if (Destination == null)
             {
                 return NotFound();
@@ -61,14 +62,14 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
 
             var travelPlan = await _db.TravelPlans
                 .Include(tp => tp.Destinations)
-                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+                .FirstOrDefaultAsync(tp => tp.Guid == travelPlanId);
 
             if (travelPlan == null)
             {
                 return NotFound();
             }
 
-            var destinationToUpdate = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            var destinationToUpdate = travelPlan.Destinations.FirstOrDefault(d => d.Guid == destinationId);
             if (destinationToUpdate == null)
             {
                 return NotFound();
@@ -76,9 +77,9 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
 
             destinationToUpdate.City = Destination.City;
             destinationToUpdate.Country = Destination.Country;
-            destinationToUpdate.Activities = Destination.Activities;
-            destinationToUpdate.Accommodations = Destination.Accommodations;
-            destinationToUpdate.Transportations = Destination.Transportations;
+            destinationToUpdate.Activities = Destination.Activities ?? new List<Activity>();
+            destinationToUpdate.Accommodations = Destination.Accommodations ?? new List<Accommodation>();
+            destinationToUpdate.Transportations = Destination.Transportations ?? new List<Transportation>();
 
             await _db.SaveChangesAsync();
 

@@ -25,108 +25,123 @@
 
     <h3>Destinations</h3>
     <div id="destinations">
-        <div class="destination">
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].City"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].City" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Country"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Country" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Country" class="text-danger"></span>
-            </div>
+        @for (int i = 0; i < Model.NewTravelPlan.Destinations.Count; i++)
+        {
+            <div class="destination">
+                <div class="form-group">
+                    <label asp-for="NewTravelPlan.Destinations[i].City"></label>
+                    <input asp-for="NewTravelPlan.Destinations[i].City" class="form-control" />
+                    <span asp-validation-for="NewTravelPlan.Destinations[i].City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewTravelPlan.Destinations[i].Country"></label>
+                    <input asp-for="NewTravelPlan.Destinations[i].Country" class="form-control" />
+                    <span asp-validation-for="NewTravelPlan.Destinations[i].Country" class="text-danger"></span>
+                </div>
 
-            <h4>Activities</h4>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Activities[0].Name"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Activities[0].Name" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Activities[0].Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Activities[0].Description"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Activities[0].Description" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Activities[0].Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Activities[0].StartDateTime"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Activities[0].StartDateTime" class="form-control" type="datetime-local" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Activities[0].StartDateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Activities[0].EndDateTime"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Activities[0].EndDateTime" class="form-control" type="datetime-local" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Activities[0].EndDateTime" class="text-danger"></span>
-            </div>
+                <h4>Activities</h4>
+                @for (int j = 0; j < Model.NewTravelPlan.Destinations[i].Activities.Count; j++)
+                {
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Activities[j].Name"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Activities[j].Name" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Activities[j].Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Activities[j].Description"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Activities[j].Description" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Activities[j].Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Activities[j].StartDateTime"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Activities[j].StartDateTime" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Activities[j].StartDateTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Activities[j].EndDateTime"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Activities[j].EndDateTime" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Activities[j].EndDateTime" class="text-danger"></span>
+                    </div>
+                }
 
-            <h4>Accommodation</h4>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Name"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Name" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Accommodations[0].Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.Street"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.Street" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.Street" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.City"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.City" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.Country"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.Country" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.Country" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.ZipCode"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.ZipCode" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Accommodations[0].Address.ZipCode" class="text-danger"></span>
-            </div>
+                <h4>Accommodation</h4>
+                @for (int k = 0; k < Model.NewTravelPlan.Destinations[i].Accommodations.Count; k++)
+                {
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Name"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Name" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Accommodations[k].Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.Street"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.Street" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.Street" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.City"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.City" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.Country"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.Country" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.Country" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.ZipCode"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.ZipCode" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Accommodations[k].Address.ZipCode" class="text-danger"></span>
+                    </div>
+                }
 
-            <h4>Transportation</h4>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Transportations[0].Type"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Transportations[0].Type" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Transportations[0].Type" class="text-danger"></span>
+                <h4>Transportation</h4>
+                @for (int l = 0; l < Model.NewTravelPlan.Destinations[i].Transportations.Count; l++)
+                {
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Transportations[l].Type"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Transportations[l].Type" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Transportations[l].Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Transportations[l].BookingNumber"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Transportations[l].BookingNumber" class="form-control" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Transportations[l].BookingNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Transportations[l].IsRoundTrip"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Transportations[l].IsRoundTrip" class="form-control" type="checkbox" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NewTravelPlan.Destinations[i].Transportations[l].Cost"></label>
+                        <input asp-for="NewTravelPlan.Destinations[i].Transportations[l].Cost" class="form-control" type="number" />
+                        <span asp-validation-for="NewTravelPlan.Destinations[i].Transportations[l].Cost" class="text-danger"></span>
+                    </div>
+                }
             </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Transportations[0].BookingNumber"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Transportations[0].BookingNumber" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Transportations[0].BookingNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Transportations[0].IsRoundTrip"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Transportations[0].IsRoundTrip" class="form-control" type="checkbox" />
-            </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.Destinations[0].Transportations[0].Cost"></label>
-                <input asp-for="NewTravelPlan.Destinations[0].Transportations[0].Cost" class="form-control" type="number" />
-                <span asp-validation-for="NewTravelPlan.Destinations[0].Transportations[0].Cost" class="text-danger"></span>
-            </div>
-        </div>
+        }
     </div>
 
     <h3>Persons</h3>
     <div id="persons">
-        <div class="person">
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.People[0].Name"></label>
-                <input asp-for="NewTravelPlan.People[0].Name" class="form-control" />
-                <span asp-validation-for="NewTravelPlan.People[0].Name" class="text-danger"></span>
+        @for (int m = 0; m < Model.NewTravelPlan.People.Count; m++)
+        {
+            <div class="person">
+                <div class="form-group">
+                    <label asp-for="NewTravelPlan.People[m].Name"></label>
+                    <input asp-for="NewTravelPlan.People[m].Name" class="form-control" />
+                    <span asp-validation-for="NewTravelPlan.People[m].Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewTravelPlan.People[m].Role"></label>
+                    <select asp-for="NewTravelPlan.People[m].Role" class="form-control">
+                        <option value="Traveler">Traveler</option>
+                        <option value="Guide">Guide</option>
+                        <option value="Driver">Driver</option>
+                    </select>
+                    <span asp-validation-for="NewTravelPlan.People[m].Role" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="NewTravelPlan.People[0].Role"></label>
-                <select asp-for="NewTravelPlan.People[0].Role" class="form-control">
-                    <option value="Traveler">Traveler</option>
-                    <option value="Guide">Guide</option>
-                    <option value="Driver">Driver</option>
-                </select>
-                <span asp-validation-for="NewTravelPlan.People[0].Role" class="text-danger"></span>
-            </div>
-        </div>
+        }
     </div>
     <button type="button" class="btn btn-secondary" onclick="addPerson()">Add Another Person</button>
 
@@ -144,19 +159,19 @@
             let personDiv = document.createElement('div');
             personDiv.className = 'person';
             personDiv.innerHTML = `
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input name="NewTravelPlan.People[${personCount}].Name" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Role</label>
-                                    <select name="NewTravelPlan.People[${personCount}].Role" class="form-control">
-                                        <option value="Traveler">Traveler</option>
-                                        <option value="Guide">Guide</option>
-                                        <option value="Driver">Driver</option>
-                                    </select>
-                                </div>
-                            `;
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input name="NewTravelPlan.People[${personCount}].Name" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select name="NewTravelPlan.People[${personCount}].Role" class="form-control">
+                                <option value="Traveler">Traveler</option>
+                                <option value="Guide">Guide</option>
+                             
+                            </select>
+                        </div>
+                    `;
             personsDiv.appendChild(personDiv);
             personCount++;
         }

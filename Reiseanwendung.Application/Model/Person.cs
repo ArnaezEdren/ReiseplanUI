@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reiseanwendung.Application.Model
 {
     [Table("Persons")]
-    public class Person
+    public class Person : IEntity<int>
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
+        public Guid Guid { get; private set; }
         public string? Name { get; set; }
         public virtual ICollection<TravelPlan> TravelPlans { get; set; } = new List<TravelPlan>();
 
         public Person()
         {
-            Id = Guid.NewGuid();
-            TravelPlans = new List<TravelPlan>();
+            Guid = Guid.NewGuid();
         }
 
         public Person(string name) : this()
@@ -43,8 +41,4 @@ namespace Reiseanwendung.Application.Model
             return people.Count > 1;
         }
     }
-
-
-
-
 }

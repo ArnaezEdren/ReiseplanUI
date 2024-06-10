@@ -33,7 +33,7 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
                 .Include(tp => tp.Destinations)
                     .ThenInclude(d => d.Transportations)
                 .Include(tp => tp.People)
-                .FirstOrDefault(t => t.Id == guid);
+                .FirstOrDefault(t => t.Guid == guid);
 
             if (travelPlan == null)
             {
@@ -56,14 +56,14 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
         {
             var travelPlan = await _db.TravelPlans
                 .Include(tp => tp.Destinations)
-                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+                .FirstOrDefaultAsync(tp => tp.Guid == travelPlanId);
 
             if (travelPlan == null)
             {
                 return NotFound();
             }
 
-            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Guid == destinationId);
             if (destination != null)
             {
                 travelPlan.Destinations.Remove(destination);
@@ -78,17 +78,17 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             var travelPlan = await _db.TravelPlans
                 .Include(tp => tp.Destinations)
                     .ThenInclude(d => d.Activities)
-                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+                .FirstOrDefaultAsync(tp => tp.Guid == travelPlanId);
 
             if (travelPlan == null)
             {
                 return NotFound();
             }
 
-            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Guid == destinationId);
             if (destination != null)
             {
-                var activity = destination.Activities.FirstOrDefault(a => a.Id == activityId);
+                var activity = destination.Activities.FirstOrDefault(a => a.Guid == activityId);
                 if (activity != null)
                 {
                     destination.Activities.Remove(activity);
@@ -104,17 +104,17 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             var travelPlan = await _db.TravelPlans
                 .Include(tp => tp.Destinations)
                     .ThenInclude(d => d.Accommodations)
-                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+                .FirstOrDefaultAsync(tp => tp.Guid == travelPlanId);
 
             if (travelPlan == null)
             {
                 return NotFound();
             }
 
-            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Guid == destinationId);
             if (destination != null)
             {
-                var accommodation = destination.Accommodations.FirstOrDefault(a => a.Id == accommodationId);
+                var accommodation = destination.Accommodations.FirstOrDefault(a => a.Guid == accommodationId);
                 if (accommodation != null)
                 {
                     destination.Accommodations.Remove(accommodation);
@@ -130,17 +130,17 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
             var travelPlan = await _db.TravelPlans
                 .Include(tp => tp.Destinations)
                     .ThenInclude(d => d.Transportations)
-                .FirstOrDefaultAsync(tp => tp.Id == travelPlanId);
+                .FirstOrDefaultAsync(tp => tp.Guid == travelPlanId);
 
             if (travelPlan == null)
             {
                 return NotFound();
             }
 
-            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Id == destinationId);
+            var destination = travelPlan.Destinations.FirstOrDefault(d => d.Guid == destinationId);
             if (destination != null)
             {
-                var transportation = destination.Transportations.FirstOrDefault(t => t.Id == transportationId);
+                var transportation = destination.Transportations.FirstOrDefault(t => t.Guid == transportationId);
                 if (transportation != null)
                 {
                     destination.Transportations.Remove(transportation);

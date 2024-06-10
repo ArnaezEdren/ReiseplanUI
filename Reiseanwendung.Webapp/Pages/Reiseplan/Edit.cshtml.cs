@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Reiseanwendung.Application.Infrastructure;
 using Reiseanwendung.Application.Model;
-using Reiseanwendung.Webapp.Dto;
 using Reiseanwendung.Webapp.Dto.Reiseanwendung.Webapp.TravelplanDto;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Reiseanwendung.Webapp.Pages.Reiseplan
 {
@@ -25,37 +25,53 @@ namespace Reiseanwendung.Webapp.Pages.Reiseplan
         [BindProperty]
         public TravelplanDto TravelPlan { get; set; } = null!;
 
-        public IActionResult OnGet(Guid guid)
+        public async Task<IActionResult> OnGetAsync(Guid guid)
         {
-            var travelPlan = _db.TravelPlans.FirstOrDefault(t => t.Id == guid);
+            var travelPlan = await _db.TravelPlans
+                .Include(tp => tp.Destinations)
+                .ThenInclude(d => d.Activities)
+                .Include(tp => tp.Destinations)
+                .ThenInclude(d => d.Accommodations)
+                .Include(tp => tp.Destinations)
+                .ThenInclude(d => d.Transportations)
+                .FirstOrDefaultAsync(tp => tp.Guid == guid);
+
             if (travelPlan is null)
             {
                 return RedirectToPage("/Reiseplan/Index");
             }
+
             TravelPlan = _mapper.Map<TravelplanDto>(travelPlan);
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            var travelPlan = _db.TravelPlans.FirstOrDefault(t => t.Id == TravelPlan.Id);
+            var travelPlan = await _db.TravelPlans
+                .Include(tp => tp.Destinations)
+                .ThenInclude(d => d.Activities)
+                .Include(tp => tp.Destinations)
+                .ThenInclude(d => d.Accommodations)
+                .Include(tp => tp.Destinations)
+                .ThenInclude(d => d.Transportations)
+                .FirstOrDefaultAsync(tp => tp.Guid == TravelPlan.Guid);
+
             if (travelPlan is null)
             {
                 return RedirectToPage("/Reiseplan/Index");
             }
 
-            // Map updated values from DTO to the existing entity
             _mapper.Map(TravelPlan, travelPlan);
 
             _db.Entry(travelPlan).State = EntityState.Modified;
             try
             {
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

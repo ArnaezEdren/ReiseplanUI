@@ -1,25 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System;
 
 namespace Reiseanwendung.Application.Model
 {
-    public class Accommodation
+    public class Accommodation : IEntity<int>
     {
-        public Guid Id { get; set; }
+        public Guid Guid { get; private set; }
+        public int Id { get; set; }
 
         [Required]
         public string? Name { get; set; }
 
+        [Required]
         public Address Address { get; set; } = new Address();
 
         public List<Booking> Bookings { get; set; } = new List<Booking>();
 
         // Parameterless constructor
-        public Accommodation() { }
+        public Accommodation()
+        {
+            Guid = Guid.NewGuid();
+        }
 
-        // Optional: Constructor with parameters if needed
-        public Accommodation(string name, Address address)
+        // Constructor with parameters
+        public Accommodation(string name, Address address) : this()
         {
             Name = name;
             Address = address;

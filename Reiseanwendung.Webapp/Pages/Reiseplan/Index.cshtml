@@ -1,5 +1,9 @@
 ﻿@page
 @model Reiseanwendung.Webapp.Pages.Reiseplan.IndexModel
+@{
+    ViewData["Title"] = "Reisepläne";
+}
+
 @section head
 {
     <style>
@@ -13,6 +17,7 @@
 <p>@Model.Travelplans.Count Reisepläne gefunden. Erstellt um @DateTime.Now.ToString("HH:mm").</p>
 
 <a asp-page="/Reiseplan/CreateTravelplan" class="btn btn-primary">Add Travel Plan</a>
+<a asp-page="/Reiseplan/BulkPage" class="btn btn-secondary">Bulk Edit</a>
 
 <table class="table table-sm">
     <thead>
@@ -44,8 +49,8 @@
                         }
                     </ul>
                 </td>
-                <td><a asp-page="/Reiseplan/Details" asp-route-guid="@t.Id">Details</a></td>
-                <td><a asp-page="/Reiseplan/Edit" asp-route-guid="@t.Id">Edit</a></td>
+                <td><a asp-page="/Reiseplan/Details" asp-route-guid="@t.Guid">Details</a></td>
+                <td><a asp-page="/Reiseplan/Edit" asp-route-guid="@t.Guid">Edit</a></td>
                 <td>@t.Destinations.Sum(d => d.Activities.Count)</td>
                 <td>@t.Destinations.Sum(d => d.Accommodations.Count)</td>
                 <td>@t.Destinations.Sum(d => d.Transportations.Count)</td>
@@ -53,3 +58,5 @@
         }
     </tbody>
 </table>
+
+

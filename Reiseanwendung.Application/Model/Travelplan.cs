@@ -6,20 +6,19 @@ using System.Linq;
 namespace Reiseanwendung.Application.Model
 {
     [Table("Travelplan")]
-    public class TravelPlan
+    public class TravelPlan : IEntity<int>
     {
-        public Guid Id { get; set; }
+        public Guid Guid { get; private set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public ICollection<Person> People { get; set; } = new List<Person>();
+        public ICollection<Person>? People { get; set; } = new List<Person>();
         public ICollection<Destination> Destinations { get; set; } = new List<Destination>();
 
         public TravelPlan()
         {
-            Id = Guid.NewGuid();
-            People = new List<Person>();
-            Destinations = new List<Destination>();
+            Guid = Guid.NewGuid();
         }
 
         public TravelPlan(string name, DateTime startDate, DateTime endDate) : this()
@@ -34,11 +33,6 @@ namespace Reiseanwendung.Application.Model
             destination.TravelPlan = this;
             destination.TravelPlanId = this.Id;
             Destinations.Add(destination);
-        }
-
-        public bool IsGuideAvailable(Guid guideId, List<Person> people)
-        {
-            return people.Any(person => person.Id == guideId && person is Guide);
         }
 
         public decimal CalculateTotalCost()
@@ -73,5 +67,4 @@ namespace Reiseanwendung.Application.Model
             return Destinations.Where(destination => destination.Country == country);
         }
     }
-
 }

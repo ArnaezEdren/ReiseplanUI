@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Reiseanwendung.Application.Model;
+using Reiseanwendung.Webapp.Dto;
 using Reiseanwendung.Webapp.Dto.Reiseanwendung.Webapp.TravelplanDto;
 
 public class MappingProfile : Profile

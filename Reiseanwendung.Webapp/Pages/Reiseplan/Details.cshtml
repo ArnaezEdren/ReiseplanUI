@@ -11,7 +11,7 @@
     <div class="d-flex">
         <!-- Buttons on the left side -->
         <div class="mr-3 mb-3">
-            <a asp-page="/Reiseplan/AddDestination" asp-route-travelPlanId="@Model.TravelPlan.Id" class="btn btn-primary">Add Destination</a>
+            <a asp-page="/Reiseplan/AddDestination" asp-route-travelPlanId="@Model.TravelPlan.Guid" class="btn btn-primary">Add Destination</a>
         </div>
 
         <!-- Content on the right side -->
@@ -28,8 +28,8 @@
             {
                 <div class="mb-4">
                     <h5>Destination: @destination.City, @destination.Country</h5>
-                    <a asp-page="/Reiseplan/EditDestination" asp-route-travelPlanId="@Model.TravelPlan.Id" asp-route-destinationId="@destination.Id" class="btn btn-secondary mb-2">Edit Destination</a>
-                    <form method="post" asp-page-handler="DeleteDestination" asp-route-travelPlanId="@Model.TravelPlan.Id" asp-route-destinationId="@destination.Id" onsubmit="return confirm('Are you sure you want to delete this destination?');">
+                    <a asp-page="/Reiseplan/EditDestination" asp-route-travelPlanId="@Model.TravelPlan.Guid" asp-route-destinationId="@destination.Guid" class="btn btn-secondary mb-2">Edit Destination</a>
+                    <form method="post" asp-page-handler="DeleteDestination" asp-route-travelPlanId="@Model.TravelPlan.Guid" asp-route-destinationId="@destination.Guid" onsubmit="return confirm('Are you sure you want to delete this destination?');">
                         <button type="submit" class="btn btn-danger mb-2">Delete Destination</button>
                     </form>
 
@@ -49,7 +49,7 @@
                                         {
                                             <li>
                                                 @activity.Name (@activity.StartDateTime.ToString("yyyy-MM-dd HH:mm") - @activity.EndDateTime.ToString("yyyy-MM-dd HH:mm"))
-                                                <form method="post" asp-page-handler="DeleteActivity" asp-route-travelPlanId="@Model.TravelPlan.Id" asp-route-destinationId="@destination.Id" asp-route-activityId="@activity.Id" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this activity?');">
+                                                <form method="post" asp-page-handler="DeleteActivity" asp-route-travelPlanId="@Model.TravelPlan.Guid" asp-route-destinationId="@destination.Guid" asp-route-activityId="@activity.Guid" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this activity?');">
                                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                 </form>
                                             </li>
@@ -62,7 +62,7 @@
                                         {
                                             <li>
                                                 @accommodation.Name - @($"{accommodation.Address.Street}, {accommodation.Address.City}, {accommodation.Address.Country}, {accommodation.Address.ZipCode}")
-                                                <form method="post" asp-page-handler="DeleteAccommodation" asp-route-travelPlanId="@Model.TravelPlan.Id" asp-route-destinationId="@destination.Id" asp-route-accommodationId="@accommodation.Id" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this accommodation?');">
+                                                <form method="post" asp-page-handler="DeleteAccommodation" asp-route-travelPlanId="@Model.TravelPlan.Guid" asp-route-destinationId="@destination.Guid" asp-route-accommodationId="@accommodation.Guid" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this accommodation?');">
                                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                 </form>
                                             </li>
@@ -75,7 +75,7 @@
                                         {
                                             <li>
                                                 @transportation.Type - Booking Number: @transportation.BookingNumber, Round Trip: @(transportation.IsRoundTrip ? "Yes" : "No"), Cost: @(transportation.Cost.ToString("C") ?? "N/A")
-                                                <form method="post" asp-page-handler="DeleteTransportation" asp-route-travelPlanId="@Model.TravelPlan.Id" asp-route-destinationId="@destination.Id" asp-route-transportationId="@transportation.Id" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this transportation?');">
+                                                <form method="post" asp-page-handler="DeleteTransportation" asp-route-travelPlanId="@Model.TravelPlan.Guid" asp-route-destinationId="@destination.Guid" asp-route-transportationId="@transportation.Guid" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this transportation?');">
                                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                 </form>
                                             </li>
